@@ -1,0 +1,12 @@
+- content_for :head do
+  = javascript_include_tag 'application'
+  = stylesheet_link_tag 'application'
+  = csrf_meta_tag
+
+- content_for :content do
+  #wrapper
+    %main#content{role: 'main'}
+      .inner-block
+        = yield
+
+= render template: 'layouts/moj_internal_template'
