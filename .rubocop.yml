@@ -16,6 +16,17 @@ AllCops:
     - 'script/cucumber'
   RunRailsCops: true
 
+# Allow long lines in specs, as it's almost impossible to fit RSpec's
+# expectations into 80 characters.
+Metrics/LineLength:
+  Exclude:
+    - 'spec/**/*'
+
+# Don't worry about long methods in specs.
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*'
+
 # private/protected/public
 Style/AccessModifierIndentation:
   EnforcedStyle: outdent
@@ -50,17 +61,6 @@ Style/FormatString:
 # It's not really clearer to replace every if with a return if.
 Style/GuardClause:
   Enabled: false
-
-# Allow long lines in specs, as it's almost impossible to fit RSpec's
-# expectations into 80 characters.
-Style/LineLength:
-  Exclude:
-    - 'spec/**/*'
-
-# Don't worry about long methods in specs.
-Style/MethodLength:
-  Exclude:
-    - 'spec/**/*'
 
 # Groups of three is not always the right thing for numeric literals
 Style/NumericLiterals:
