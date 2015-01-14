@@ -1,21 +1,4 @@
 %h1 New Performance Management Report
 
-= form_for @report_form, url: reports_path, method: :post, html: {class: 'report-form'} do |f|
-
-  %h2 Development needs
-  %p Record any agreed development activity and timescales
-
-  %table
-    %thead
-      %tr
-        %th Number
-        %th Objective
-    %tbody
-      - (1..10).each do |n|
-        %tr
-          %td.number= n
-          %td= f.text_area "development_#{n}"
-
-
-  .form-group
-    = f.submit 'Save', class: 'button'
+= form_for @report_form, url: reports_path, method: :post, html: {class: 'report-form'} do |form|
+  = render 'form_fields', f: form

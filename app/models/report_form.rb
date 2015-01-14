@@ -14,4 +14,14 @@ class ReportForm
   def persisted?
     false
   end
+
+  def self.from_report(report)
+    report_form = ReportForm.new
+
+    report.development.each_with_index do |d, index|
+      report_form.send("development_#{index + 1}=", d)
+    end
+
+    report_form
+  end
 end

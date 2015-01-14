@@ -10,6 +10,6 @@
       - @reports.each do |report|
         %tr
           %td= report.id
-          %td
+          %td= link_to('edit', edit_report_path(report))
 
 = link_to('New', new_report_path)

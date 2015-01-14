@@ -8,8 +8,7 @@ Feature:
     When I create new report with some objectives
     Then the report are saved
 
-  @wip
   Scenario: Employee edits already created objectives
     Given I have an existing report
-    When I change some objectives on the report
+    When I change the objectives on the report
     Then the changes are saved on the report

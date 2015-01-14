@@ -2,8 +2,8 @@ require_relative '../sections/report_form'
 
 module UI
   module Pages
-    class NewReport < SitePrism::Page
-      set_url '/reports/new'
+    class EditReport < SitePrism::Page
+      set_url '/reports{/id}/edit'
 
       section :form, UI::Sections::ReportForm, 'form'
     end

@@ -22,4 +22,16 @@ RSpec.describe ReportForm, :type => :model do
       end
     end
   end
+
+  describe '::from_report' do
+    subject { described_class.from_report(report) }
+
+    context 'when report has some development objectives set' do
+      let(:report) { FactoryGirl.create(:filled_in_report)}
+
+      it 'should assign them to the object' do
+        expect(subject.development_1).to eql(report.development[0])
+      end
+    end
+  end
 end
