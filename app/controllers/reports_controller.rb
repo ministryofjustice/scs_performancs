@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    @report_form = ReportForm::from_report(@report)
+    @report_form = ReportForm.from_report(@report)
   end
 
   def update
@@ -28,7 +28,9 @@ class ReportsController < ApplicationController
   end
 
   def report_params
-    development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map { |n| :"development_#{n}" }
+    development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map do |n|
+      :"development_#{n}"
+    end
 
     params.require(:report_form).permit(*development_params)
   end

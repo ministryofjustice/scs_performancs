@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe Report, :type => :model do
+RSpec.describe Report, type: :model do
 end

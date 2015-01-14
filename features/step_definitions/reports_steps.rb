@@ -18,7 +18,8 @@ end
 Then(/^the report are saved$/) do
   report = Report.first
 
-  expect(report.development).to match_array(['Objective 1', '', '', '', 'Objective 5', '', '', '', '', ''])
+  expected = ['Objective 1', '', '', '', 'Objective 5', '', '', '', '', '']
+  expect(report.development).to match_array(expected)
 end
 
 When(/^I change the objectives on the report$/) do
@@ -35,7 +36,9 @@ end
 Then(/^the changes are saved on the report$/) do
   @report.reload
 
-  expect(@report.development).to match_array(['Changed Objective 1', 'New Objective', '', '', 'Changed Objective 5', '', '', '', '', ''])
+  expected = ['Changed Objective 1', 'New Objective', '', '',
+              'Changed Objective 5', '', '', '', '', '']
+  expect(@report.development).to match_array(expected)
 end
 
 When(/^I display the reports page$/) do
