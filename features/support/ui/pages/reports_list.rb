@@ -1,4 +1,4 @@
-module SitePrism
+module UI
   module Pages
     class ReportsList < SitePrism::Page
       set_url '/reports'

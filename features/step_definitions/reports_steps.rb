@@ -6,7 +6,7 @@ Given(/^I have an existing report$/) do
 end
 
 When(/^I create new report with some objectives$/) do
-  @page = SitePrism::Pages::NewReport.new
+  @page = UI::Pages::NewReport.new
   @page.load
 
   @page.development_objective_field_1.set 'Objective 1'
@@ -28,7 +28,7 @@ Then(/^the changes are saved on the report$/) do
 end
 
 When(/^I display the reports page$/) do
-  @page = SitePrism::Pages::ReportsList.new
+  @page = UI::Pages::ReportsList.new
   @page.load
 end
 
