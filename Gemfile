@@ -18,6 +18,8 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'spring'
   gem 'web-console', '~> 2.0'
 end
