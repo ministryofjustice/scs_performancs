@@ -4,12 +4,12 @@ Feature:
   So that I can be judged on my performance
 
   Scenario: Employee creates new set of objectives when providing valid information
-    Given I have no objectives set
-    When I create new set of objectives with valid information
-    Then the objectives are saved
+    Given I have no reports created
+    When I create new report with some objectives
+    Then the report are saved
 
   @wip
   Scenario: Employee edits already created objectives
-    Given I have my objectives set
-    When I change the objectives
-    Then the new objectives are saved
+    Given I have an existing report
+    When I change some objectives on the report
+    Then the changes are saved on the report
