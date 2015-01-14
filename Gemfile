@@ -13,6 +13,8 @@ gem 'uglifier', '>= 1.3.0'
 
 group :test do
   gem 'rspec-mocks'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
 end
 
 group :development, :test do

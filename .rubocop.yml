@@ -11,6 +11,9 @@ AllCops:
     - '**/Rakefile'
     - '**/Vagrantfile'
     - 'spec/rails_helper.rb'
+    - 'lib/tasks/cucumber.rake'
+    - 'features/support/env.rb'
+    - 'script/cucumber'
   RunRailsCops: true
 
 # private/protected/public
