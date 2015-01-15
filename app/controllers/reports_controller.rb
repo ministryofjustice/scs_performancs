@@ -29,7 +29,7 @@ class ReportsController < ApplicationController
 
   def report_params
     development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map do |n|
-      :"development_#{n}"
+      "development_#{n}"
     end
 
     params.require(:report_form).permit(*development_params)

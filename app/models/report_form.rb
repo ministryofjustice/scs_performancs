@@ -11,10 +11,6 @@ class ReportForm
     (1..DEVELOPMENT_OBJECTIVES).map { |n| send("development_#{n}") || '' }
   end
 
-  def persisted?
-    false
-  end
-
   def self.from_report(report)
     report_form = ReportForm.new
 
