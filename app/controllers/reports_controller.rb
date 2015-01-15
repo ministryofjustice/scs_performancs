@@ -5,7 +5,10 @@ class ReportsController < ApplicationController
 
   def create
     @report_form = ReportForm.new(report_params)
-    Report.create(development: @report_form.development_as_json)
+    Report.create(
+        development: @report_form.development_as_json,
+        smart: @report_form.smart_as_json
+    )
 
     redirect_to action: :index
   end
@@ -22,7 +25,10 @@ class ReportsController < ApplicationController
   def update
     @report_form = ReportForm.new(report_params)
     report = Report.find(params[:id])
-    report.update(development: @report_form.development_as_json)
+    report.update(
+        development: @report_form.development_as_json,
+        smart: @report_form.smart_as_json
+    )
 
     redirect_to action: :index
   end
@@ -31,7 +37,10 @@ class ReportsController < ApplicationController
     development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map do |n|
       "development_#{n}"
     end
+    smart_params = (1..ReportForm::SMART_OBJECTIVES).map do |n|
+      ["smart_what_#{n}", "smart_how_#{n}"]
+    end.flatten
 
-    params.require(:report_form).permit(*development_params)
+    params.require(:report_form).permit(*(development_params + smart_params))
   end
 end

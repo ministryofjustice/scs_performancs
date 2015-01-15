@@ -8,15 +8,24 @@ h1 {
 form {
   th {
     text-align: center;
+
+    span {
+      display: inline-block;
+      font-weight: normal;
+    }
   }
   td.number {
     width: 30px;
     text-align: center;
     font-weight: bold;
   }
+  td.what, td.how {
+    width: 50%;
+  }
 
   textarea {
     width: 95%;
     height: 105px;
+    padding: 8px;
   }
 }

@@ -26,27 +26,27 @@ RSpec.describe ReportForm, type: :model do
     subject { report_form.smart_as_json }
 
     context 'when some smart attributes are set' do
-      let(:attributes) { { smart_what_1: 'Smart what 1', smart_how_1: 'Smart how 1', smart_how_4: 'Smart how 4'}}
+      let(:attributes) { { smart_what_1: 'Smart what 1', smart_how_1: 'Smart how 1', smart_how_4: 'Smart how 4' } }
 
       it 'return array of all 10 smart objectives' do
         is_expected.to match_array([
-                                       { what: 'Smart what 1', how: 'Smart how 1'},
-                                       { what: '', how: ''},
-                                       { what: '', how: ''},
-                                       { what: '', how: 'Smart how 4'},
-                                       { what: '', how: ''},
-                                       { what: '', how: ''},
-                                       { what: '', how: ''},
-                                       { what: '', how: ''},
-                                       { what: '', how: ''},
-                                       { what: '', how: ''},
-                                   ])
+          { what: 'Smart what 1', how: 'Smart how 1' },
+          { what: '', how: '' },
+          { what: '', how: '' },
+          { what: '', how: 'Smart how 4' },
+          { what: '', how: '' },
+          { what: '', how: '' },
+          { what: '', how: '' },
+          { what: '', how: '' },
+          { what: '', how: '' },
+          { what: '', how: '' }
+        ])
       end
     end
 
     context 'when no development attributes are set' do
       it 'return array of 10 empty what and how hashes' do
-        is_expected.to match_array([{what: '', how: ''}] * 10)
+        is_expected.to match_array([{ what: '', how: '' }] * 10)
       end
     end
   end
@@ -54,7 +54,6 @@ RSpec.describe ReportForm, type: :model do
   describe '::from_report' do
     let(:report) { FactoryGirl.create(:filled_in_report) }
     subject { described_class.from_report(report) }
-
 
     it 'assigns development objectives to the object' do
       expect(subject.development_1).to eql(report.development[0])

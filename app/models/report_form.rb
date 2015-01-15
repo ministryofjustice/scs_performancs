@@ -20,8 +20,8 @@ class ReportForm
   def smart_as_json
     (1..SMART_OBJECTIVES).map do |n|
       {
-          what: send("smart_what_#{n}") || '',
-          how: send("smart_how_#{n}") || ''
+        what: send("smart_what_#{n}") || '',
+        how: send("smart_how_#{n}") || ''
       }
     end
   end
@@ -29,14 +29,26 @@ class ReportForm
   def self.from_report(report)
     report_form = ReportForm.new
 
-    report.development.each_with_index do |d, index|
-      report_form.send("development_#{index + 1}=", d)
-    end
-    report.smart.each_with_index do |s, index|
-      report_form.send("smart_what_#{index + 1}=", s['what'])
-      report_form.send("smart_how_#{index + 1}=", s['how'])
-    end
+    process_development(report, report_form)
+    process_smart(report, report_form)
 
     report_form
+  end
+
+  def self.process_smart(report, report_form)
+    if report.smart
+      report.smart.each_with_index do |s, index|
+        report_form.send("smart_what_#{index + 1}=", s['what'])
+        report_form.send("smart_how_#{index + 1}=", s['how'])
+      end
+    end
+  end
+
+  def self.process_development(report, report_form)
+    if report.development
+      report.development.each_with_index do |d, index|
+        report_form.send("development_#{index + 1}=", d)
+      end
+    end
   end
 end
