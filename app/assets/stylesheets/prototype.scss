@@ -4,3 +4,19 @@ h1 {
   margin: 30px 0;
   border-bottom: 1px solid $black;
 }
+
+form {
+  th {
+    text-align: center;
+  }
+  td.number {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  textarea {
+    width: 95%;
+    height: 105px;
+  }
+}

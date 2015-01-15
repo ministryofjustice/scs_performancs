@@ -1,0 +1,15 @@
+%h1 Performance Management Reports
+
+- unless @reports.empty?
+  %table
+    %thead
+      %tr
+        %th Number
+        %th
+    %tbody
+      - @reports.each do |report|
+        %tr
+          %td= report.id
+          %td= link_to('edit', edit_report_path(report))
+
+= link_to('New', new_report_path)

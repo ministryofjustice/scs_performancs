@@ -1,0 +1,17 @@
+%h2 Development needs
+%p Record any agreed development activity and timescales
+
+%table
+  %thead
+    %tr
+      %th Number
+      %th Objective
+  %tbody
+    - (1..10).each do |n|
+      %tr
+        %td.number= n
+        %td= f.text_area "development_#{n}"
+
+
+.form-group
+  = f.submit 'Save', class: 'button'

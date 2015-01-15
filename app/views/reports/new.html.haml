@@ -1,0 +1,4 @@
+%h1 New Performance Management Report
+
+= form_for @report_form, url: reports_path, method: :post, html: {class: 'report-form'} do |form|
+  = render 'form_fields', f: form
