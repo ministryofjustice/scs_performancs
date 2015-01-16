@@ -27,12 +27,10 @@ class ReportForm
   end
 
   def self.from_report(report)
-    report_form = ReportForm.new
-
-    process_development(report, report_form)
-    process_smart(report, report_form)
-
-    report_form
+    ReportForm.new.tap do |report_form|
+      process_development(report, report_form)
+      process_smart(report, report_form)
+    end
   end
 
   def self.process_smart(report, report_form)
