@@ -36,19 +36,15 @@ class ReportForm
   end
 
   def self.process_smart(report, report_form)
-    if report.smart
-      report.smart.each_with_index do |s, index|
-        report_form.send("smart_what_#{index + 1}=", s['what'])
-        report_form.send("smart_how_#{index + 1}=", s['how'])
-      end
+    report.smart.each_with_index do |s, index|
+      report_form.send("smart_what_#{index + 1}=", s['what'])
+      report_form.send("smart_how_#{index + 1}=", s['how'])
     end
   end
 
   def self.process_development(report, report_form)
-    if report.development
-      report.development.each_with_index do |d, index|
-        report_form.send("development_#{index + 1}=", d)
-      end
+    report.development.each_with_index do |d, index|
+      report_form.send("development_#{index + 1}=", d)
     end
   end
 end
