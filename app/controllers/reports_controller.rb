@@ -33,6 +33,15 @@ class ReportsController < ApplicationController
     redirect_to action: :index
   end
 
+  def approve
+    @report = Report.find(params[:id])
+    @report.update(approved_at: Time.now) unless @report.approved?
+
+    redirect_to action: :index
+  end
+
+  private
+
   def report_params
     development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map do |n|
       "development_#{n}"
