@@ -9,6 +9,10 @@ And(/^I have some objectives approved$/) do
   @report = FactoryGirl.create(:approved_report)
 end
 
+And(/^I have some objectives with mid\-year progress$/) do
+  @report = FactoryGirl.create(:report_with_mid_year_review)
+end
+
 When(/^I create new report with some objectives$/) do
   @page = UI::Pages::NewReport.new
   @page.load
@@ -115,6 +119,33 @@ Then(/^my mid\-year progress should be saved$/) do
     { 'what' => 'Almost achieved', 'how' => 'Attended 3 times' }
   ] + [{ 'what' => '', 'how' => '' }] * 9
   expected_development_review = ['Did PRINCE2 course'] + ([''] * 9)
+
+  expect(@report.mid_year_review_smart).to eql(expected_smart_review)
+  expect(@report.mid_year_review_development).to eql(expected_development_review)
+end
+
+When(/^I change my mid\-year progress against my objectives$/) do
+  @page = UI::Pages::MidYearReview.new
+  @page.load(id: @report.id)
+
+  @page.form.smart_objective_what_field_1.set 'Changed'
+  @page.form.smart_objective_how_field_1.set 'Attended 3 times'
+
+  @page.form.development_objective_field_1.set 'Did PRINCE2 course'
+  @page.form.development_objective_field_2.set 'Still do not know how to use a printer'
+
+  @page.form.save_button.click
+end
+
+Then(/^the changes are saved on my  mid\-year progress$/) do
+  @report.reload
+
+  expected_smart_review = [
+    { 'what' => 'Changed', 'how' => 'Attended 3 times' }
+  ] + [{ 'what' => '', 'how' => '' }] * 9
+  expected_development_review = [
+    'Did PRINCE2 course', 'Still do not know how to use a printer'
+  ] + ([''] * 8)
 
   expect(@report.mid_year_review_smart).to eql(expected_smart_review)
   expect(@report.mid_year_review_development).to eql(expected_development_review)

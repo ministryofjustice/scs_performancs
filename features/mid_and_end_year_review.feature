@@ -7,3 +7,8 @@ Feature:
     And I have some objectives approved
     When I enter my mid-year progress against my objectives
     Then my mid-year progress should be saved
+
+  Scenario: Employee fills in their mid-year review
+    And I have some objectives with mid-year progress
+    When I change my mid-year progress against my objectives
+    Then the changes are saved on my  mid-year progress
