@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Report, type: :model do
-
   describe 'default scope' do
     before do
       FactoryGirl.create(:report, id: 5)
@@ -9,7 +8,7 @@ RSpec.describe Report, type: :model do
     end
 
     it 'orders reports by id' do
-      expect(Report.all.pluck(:id)).to eql([2, 5])
+      expect(described_class.all.pluck(:id)).to eql([2, 5])
     end
   end
 

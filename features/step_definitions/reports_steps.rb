@@ -5,6 +5,10 @@ Given(/^I have an existing report$/) do
   @report = FactoryGirl.create(:filled_in_report)
 end
 
+And(/^I have some objectives approved$/) do
+  @report = FactoryGirl.create(:approved_report)
+end
+
 When(/^I create new report with some objectives$/) do
   @page = UI::Pages::NewReport.new
   @page.load
@@ -90,4 +94,28 @@ Then(/^I can see the existing report on the page$/) do
 
   expect(report_ids.size).to be(1)
   expect(report_ids.first).to eql(@report.id)
+end
+
+When(/^I enter my mid\-year progress against my objectives$/) do
+  @page = UI::Pages::MidYearReview.new
+  @page.load(id: @report.id)
+
+  @page.form.smart_objective_what_field_1.set 'Almost achieved'
+  @page.form.smart_objective_how_field_1.set 'Attended 3 times'
+
+  @page.form.development_objective_field_1.set 'Did PRINCE2 course'
+
+  @page.form.save_button.click
+end
+
+Then(/^my mid\-year progress should be saved$/) do
+  @report.reload
+
+  expected_smart_review = [
+    { 'what' => 'Almost achieved', 'how' => 'Attended 3 times' }
+  ] + [{ 'what' => '', 'how' => '' }] * 9
+  expected_development_review = ['Did PRINCE2 course'] + ([''] * 9)
+
+  expect(@report.mid_year_review_smart).to eql(expected_smart_review)
+  expect(@report.mid_year_review_development).to eql(expected_development_review)
 end

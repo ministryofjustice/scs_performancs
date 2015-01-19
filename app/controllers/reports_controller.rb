@@ -40,7 +40,24 @@ class ReportsController < ApplicationController
     redirect_to action: :index
   end
 
-  private
+  def mid_year_review
+    @report = Report.find(params[:id])
+    @review_form = ReportForm.from_report(@report, 'mid_year_review')
+  end
+
+  def mid_year_review_update
+    report = Report.find(params[:id])
+    review_form = ReportForm.new(report_params)
+
+    report.update(
+      mid_year_review_development: review_form.development_as_json,
+      mid_year_review_smart: review_form.smart_as_json
+    )
+
+    redirect_to action: :index
+  end
+
+private
 
   def report_params
     development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map do |n|

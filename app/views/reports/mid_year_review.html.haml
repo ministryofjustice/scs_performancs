@@ -1,0 +1,41 @@
+%h1 Mid Year Review
+
+= form_for @review_form, url: mid_year_review_update_report_path(@report), method: :post, html: {class: 'report-form'} do |f|
+  %h2 SMART objectives
+  %table
+    %thead
+      %tr
+        %th Number
+        %th
+          'What'
+        %th
+          'How'
+    %tbody
+      - (1..ReportForm::SMART_OBJECTIVES).each do |n|
+        %tr
+          %td.number= n
+          %td= @report.smart[n - 1]['what']
+          %td= @report.smart[n - 1]['how']
+        %tr
+          %td review
+          %td.what= f.text_area "smart_what_#{n}"
+          %td.how= f.text_area "smart_how_#{n}"
+
+  %h2 Development needs
+  %table
+    %thead
+      %tr
+        %th Number
+        %th Objective
+    %tbody
+      - (1..ReportForm::DEVELOPMENT_OBJECTIVES).each do |n|
+        %tr
+          %td.number= n
+          %td= @report.development[n - 1]
+        %tr
+          %td.number
+          %td= f.text_area "development_#{n}"
+
+
+  .form-group
+    = f.submit 'Save', class: 'button'
