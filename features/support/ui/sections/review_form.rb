@@ -10,6 +10,8 @@ module UI
       element :development_objective_field_2, '#review_form_development_2'
       element :development_objective_field_5, '#review_form_development_5'
 
+      element :comment, '#review_form_comment'
+
       element :save_button, 'input.button'
     end
   end

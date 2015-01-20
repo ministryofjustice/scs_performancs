@@ -39,6 +39,10 @@ RSpec.describe ReportFormFactory, type: :model do
         expect(subject.smart_what_1).to eql(report.mid_year_review_smart[0]['what'])
         expect(subject.smart_how_1).to eql(report.mid_year_review_smart[0]['how'])
       end
+
+      it 'assigns mid year comment to the form object' do
+        expect(subject.comment).to eql(report.mid_year_review_comment)
+      end
     end
   end
 end

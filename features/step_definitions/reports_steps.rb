@@ -109,6 +109,8 @@ When(/^I enter my mid\-year progress against my objectives$/) do
 
   @page.form.development_objective_field_1.set 'Did PRINCE2 course'
 
+  @page.form.comment.set 'This year has been great so far'
+
   @page.form.save_button.click
 end
 
@@ -119,9 +121,11 @@ Then(/^my mid\-year progress should be saved$/) do
     { 'what' => 'Almost achieved', 'how' => 'Attended 3 times' }
   ] + [{ 'what' => '', 'how' => '' }] * 9
   expected_development_review = ['Did PRINCE2 course'] + ([''] * 9)
+  expected_comment = 'This year has been great so far'
 
   expect(@report.mid_year_review_smart).to eql(expected_smart_review)
   expect(@report.mid_year_review_development).to eql(expected_development_review)
+  expect(@report.mid_year_review_comment).to eql(expected_comment)
 end
 
 When(/^I change my mid\-year progress against my objectives$/) do
@@ -133,6 +137,8 @@ When(/^I change my mid\-year progress against my objectives$/) do
 
   @page.form.development_objective_field_1.set 'Did PRINCE2 course'
   @page.form.development_objective_field_2.set 'Still do not know how to use a printer'
+
+  @page.form.comment.set 'Actually, it has not been so good'
 
   @page.form.save_button.click
 end
@@ -146,7 +152,9 @@ Then(/^the changes are saved on my  mid\-year progress$/) do
   expected_development_review = [
     'Did PRINCE2 course', 'Still do not know how to use a printer'
   ] + ([''] * 8)
+  expected_comment = 'Actually, it has not been so good'
 
   expect(@report.mid_year_review_smart).to eql(expected_smart_review)
   expect(@report.mid_year_review_development).to eql(expected_development_review)
+  expect(@report.mid_year_review_comment).to eql(expected_comment)
 end

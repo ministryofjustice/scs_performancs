@@ -14,6 +14,7 @@ FactoryGirl.define do
           mid_year_review_smart [
             { what: 'I can code bits now', how: 'I attended 3 times' }
           ] + [{ what: '', how: '' }] * 9
+          mid_year_review_comment 'All good!'
         end
       end
     end

@@ -12,8 +12,11 @@ class ReportFormFactory
 
   def review(type)
     ReviewForm.new.tap do |form|
-      process_development(form, "#{type}_review")
-      process_smart(form, "#{type}_review")
+      column_set = "#{type}_review"
+
+      process_development(form, column_set)
+      process_smart(form, column_set)
+      process_comment(form, column_set)
     end
   end
 
@@ -32,5 +35,10 @@ private
     @report.send(column).each_with_index do |d, index|
       form.send("development_#{index + 1}=", d)
     end
+  end
+
+  def process_comment(form, column_set)
+    column = "#{column_set}_comment"
+    form.comment = @report.send(column)
   end
 end

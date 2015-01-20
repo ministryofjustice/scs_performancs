@@ -7,11 +7,12 @@ class ReviewsController < ApplicationController
 
   def update
     report = Report.find(params[:report_id])
-    review_form = ObjectivesForm.new(report_params)
+    review_form = ReviewForm.new(report_params)
 
     report.update(
         mid_year_review_development: review_form.development_as_json,
-        mid_year_review_smart: review_form.smart_as_json
+        mid_year_review_smart: review_form.smart_as_json,
+        mid_year_review_comment: review_form.comment
     )
 
     redirect_to controller: :reports, action: :index
@@ -26,7 +27,8 @@ private
     smart_params = (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
       ["smart_what_#{n}", "smart_how_#{n}"]
     end.flatten
+    comment_params = ['comment']
 
-    params.require(:review_form).permit(*(development_params + smart_params))
+    params.require(:review_form).permit(*(development_params + smart_params + comment_params))
   end
 end

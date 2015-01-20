@@ -36,6 +36,9 @@
           %td.number
           %td= f.text_area "development_#{n}"
 
+  %h2 Additional comments
+  = f.text_area :comment
+
 
   .form-group
     = f.submit 'Save', class: 'button'

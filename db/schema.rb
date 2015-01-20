@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150119143955) do
     t.datetime "approved_at"
     t.json     "mid_year_review_smart",       default: []
     t.json     "mid_year_review_development", default: []
+    t.text     "mid_year_review_comment"
   end
 
   create_table "users", force: :cascade do |t|
