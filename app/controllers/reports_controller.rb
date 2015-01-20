@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    @report_form = ObjectivesForm.from_report(@report)
+    @report_form = ReportFormFactory.new(@report).objectives
   end
 
   def update

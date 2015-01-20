@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   def edit
     @review_id = params[:id]
     @report = Report.find(params[:report_id])
-    @review_form = ObjectivesForm.from_report(@report, 'mid_year_review')
+    @review_form = ReportFormFactory.new(@report).review(:mid_year)
   end
 
   def update
@@ -27,6 +27,6 @@ private
       ["smart_what_#{n}", "smart_how_#{n}"]
     end.flatten
 
-    params.require(:objectives_form).permit(*(development_params + smart_params))
+    params.require(:review_form).permit(*(development_params + smart_params))
   end
 end

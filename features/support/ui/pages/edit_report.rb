@@ -5,7 +5,7 @@ module UI
     class EditReport < SitePrism::Page
       set_url '/reports{/id}/edit'
 
-      section :form, UI::Sections::ReportForm, 'form'
+      section :form, UI::Sections::ObjectivesForm, 'form'
     end
   end
 end

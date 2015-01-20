@@ -50,18 +50,4 @@ RSpec.describe ObjectivesForm, type: :model do
       end
     end
   end
-
-  describe '::from_report' do
-    let(:report) { FactoryGirl.create(:filled_in_report) }
-    subject { described_class.from_report(report) }
-
-    it 'assigns development objectives to the object' do
-      expect(subject.development_1).to eql(report.development[0])
-    end
-
-    it 'assigns smart objectives to the object' do
-      expect(subject.smart_what_1).to eql(report.smart[0]['what'])
-      expect(subject.smart_how_1).to eql(report.smart[0]['how'])
-    end
-  end
 end

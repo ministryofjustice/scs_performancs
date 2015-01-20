@@ -1,6 +1,6 @@
 module UI
   module Sections
-    class ReportForm < SitePrism::Section
+    class ObjectivesForm < SitePrism::Section
       element :smart_objective_what_field_1, '#objectives_form_smart_what_1'
       element :smart_objective_what_field_3, '#objectives_form_smart_what_3'
       element :smart_objective_how_field_1, '#objectives_form_smart_how_1'

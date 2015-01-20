@@ -1,0 +1,2 @@
+class ReviewForm < ObjectivesForm
+end
