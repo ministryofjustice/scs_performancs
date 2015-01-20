@@ -25,4 +25,15 @@ class ObjectivesForm
       }
     end
   end
+
+  def self.allowed_params
+    development_params = (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).map do |n|
+      "development_#{n}"
+    end
+    smart_params = (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
+      ["smart_what_#{n}", "smart_how_#{n}"]
+    end.flatten
+
+    development_params + smart_params
+  end
 end

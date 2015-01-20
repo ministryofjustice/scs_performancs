@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   end
 
   def create
-    @report_form = ObjectivesForm.new(report_params)
+    @report_form = ObjectivesForm.new(objectives_params)
     Report.create(
         development: @report_form.development_as_json,
         smart: @report_form.smart_as_json
@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-    @report_form = ObjectivesForm.new(report_params)
+    @report_form = ObjectivesForm.new(objectives_params)
     report = Report.find(params[:id])
     report.update(
         development: @report_form.development_as_json,
@@ -42,14 +42,7 @@ class ReportsController < ApplicationController
 
 private
 
-  def report_params
-    development_params = (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).map do |n|
-      "development_#{n}"
-    end
-    smart_params = (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
-      ["smart_what_#{n}", "smart_how_#{n}"]
-    end.flatten
-
-    params.require(:objectives_form).permit(*(development_params + smart_params))
+  def objectives_params
+    params.require(:objectives_form).permit(*ObjectivesForm.allowed_params)
   end
 end

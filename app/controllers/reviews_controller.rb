@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
 
   def update
     report = Report.find(params[:report_id])
-    review_form = ReviewForm.new(report_params)
+    review_form = ReviewForm.new(review_params)
 
     report.update(
         mid_year_review_development: review_form.development_as_json,
@@ -20,15 +20,7 @@ class ReviewsController < ApplicationController
 
 private
 
-  def report_params
-    development_params = (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).map do |n|
-      "development_#{n}"
-    end
-    smart_params = (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
-      ["smart_what_#{n}", "smart_how_#{n}"]
-    end.flatten
-    comment_params = ['comment']
-
-    params.require(:review_form).permit(*(development_params + smart_params + comment_params))
+  def review_params
+    params.require(:review_form).permit(*ReviewForm.allowed_params)
   end
 end
