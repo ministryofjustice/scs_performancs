@@ -4,4 +4,8 @@ class Report < ActiveRecord::Base
   def approved?
     !approved_at.nil?
   end
+
+  def mid_year_approved?
+    !mid_year_approved_at.nil?
+  end
 end
