@@ -1,4 +1,4 @@
-class ReportForm
+class ObjectivesForm
   DEVELOPMENT_OBJECTIVES = 10
   SMART_OBJECTIVES = 10
 
@@ -27,7 +27,7 @@ class ReportForm
   end
 
   def self.from_report(report, column_set = '')
-    ReportForm.new.tap do |report_form|
+    ObjectivesForm.new.tap do |report_form|
       process_development(report, report_form, column_set)
       process_smart(report, report_form, column_set)
     end

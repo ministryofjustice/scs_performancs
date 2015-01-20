@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ReportForm, type: :model do
+RSpec.describe ObjectivesForm, type: :model do
   let(:attributes) { {} }
   subject(:report_form) { described_class.new(attributes) }
 

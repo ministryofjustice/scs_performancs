@@ -13,7 +13,7 @@
         'How'
         %span (to include steps to take to achieve the ‘what’, including the skills, knowledge, behaviours, values and competencies required)
   %tbody
-    - (1..ReportForm::SMART_OBJECTIVES).each do |n|
+    - (1..ObjectivesForm::SMART_OBJECTIVES).each do |n|
       %tr
         %td.number= n
         %td.what= f.text_area "smart_what_#{n}"
@@ -28,7 +28,7 @@
       %th Number
       %th Objective
   %tbody
-    - (1..ReportForm::DEVELOPMENT_OBJECTIVES).each do |n|
+    - (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
       %tr
         %td.number= n
         %td= f.text_area "development_#{n}"

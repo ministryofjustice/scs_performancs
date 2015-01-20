@@ -1,4 +1,4 @@
-require_relative '../sections/report_form'
+require_relative '../sections/objectives_form'
 
 module UI
   module Pages

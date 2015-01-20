@@ -11,7 +11,7 @@
         %th
           'How'
     %tbody
-      - (1..ReportForm::SMART_OBJECTIVES).each do |n|
+      - (1..ObjectivesForm::SMART_OBJECTIVES).each do |n|
         %tr
           %td.number= n
           %td= @report.smart[n - 1]['what']
@@ -28,7 +28,7 @@
         %th Number
         %th Objective
     %tbody
-      - (1..ReportForm::DEVELOPMENT_OBJECTIVES).each do |n|
+      - (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
         %tr
           %td.number= n
           %td= @report.development[n - 1]
