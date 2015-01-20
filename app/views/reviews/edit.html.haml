@@ -1,6 +1,6 @@
-%h1 Mid Year Review
+%h1= "#{@review_id.to_s.titleize} Review"
 
-= form_for @review_form, url: mid_year_review_update_report_path(@report), method: :post, html: {class: 'report-form'} do |f|
+= form_for @review_form, url: report_review_path(@report, @review_id), method: :put, html: {class: 'report-form'} do |f|
   %h2 SMART objectives
   %table
     %thead
