@@ -14,6 +14,7 @@
             = link_to('edit', edit_report_path(report))
             - if report.approved?
               - if report.mid_year_approved?
+                = link_to('end year review', edit_report_review_path(report, :end_year))
               - else
                 = link_to('mid year review', edit_report_review_path(report, :mid_year))
                 = link_to('mid year approve', mid_year_approve_report_path(report))

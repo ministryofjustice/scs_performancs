@@ -7,7 +7,7 @@ FactoryGirl.define do
       ] + [{ what: '', how: '' }] * 9
 
       factory :approved_report do
-        approved_at { 1.day.ago }
+        approved_at { 5.days.ago }
 
         factory :report_with_mid_year_review do
           mid_year_review_development ['Getting there'] + [''] * 9
@@ -15,6 +15,18 @@ FactoryGirl.define do
             { what: 'I can code bits now', how: 'I attended 3 times' }
           ] + [{ what: '', how: '' }] * 9
           mid_year_review_comment 'All good!'
+
+          factory :report_with_mid_year_approved do
+            mid_year_approved_at { 3.days.ago }
+
+            factory :report_with_end_year_review do
+              end_year_review_development ['I am Agile practitioner now'] + [''] * 9
+              end_year_review_smart [
+                { what: 'I can use Rails', how: 'I attended 6 times' }
+              ] + [{ what: '', how: '' }] * 9
+              end_year_review_comment 'It could not be a better year!'
+            end
+          end
         end
       end
     end

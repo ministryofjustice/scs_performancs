@@ -5,12 +5,20 @@ Given(/^I have an existing report$/) do
   @report = FactoryGirl.create(:filled_in_report)
 end
 
-And(/^I have some objectives approved$/) do
+Given(/^I have some objectives approved$/) do
   @report = FactoryGirl.create(:approved_report)
 end
 
-And(/^I have some objectives with mid\-year progress$/) do
+Given(/^I have some objectives with mid\-year progress$/) do
   @report = FactoryGirl.create(:report_with_mid_year_review)
+end
+
+Given(/^I have some objectives and mid\-year review approved$/) do
+  @report = FactoryGirl.create(:report_with_mid_year_approved)
+end
+
+Given(/^I have some objectives, mid\-year review and end\-year review in progress$/) do
+  @report = FactoryGirl.create(:report_with_end_year_review)
 end
 
 When(/^I create new report with some objectives$/) do
@@ -100,8 +108,9 @@ Then(/^I can see the existing report on the page$/) do
   expect(report_ids.first).to eql(@report.id)
 end
 
-When(/^I enter my mid\-year progress against my objectives$/) do
-  @page = UI::Pages::MidYearReview.new
+When(/^I enter my (mid|end)\-year progress against my objectives$/) do |phase|
+  page_class = "UI::Pages::#{phase.camelize}YearReview".constantize
+  @page = page_class.new
   @page.load(id: @report.id)
 
   @page.form.smart_objective_what_field_1.set 'Almost achieved'
@@ -114,7 +123,7 @@ When(/^I enter my mid\-year progress against my objectives$/) do
   @page.form.save_button.click
 end
 
-Then(/^my mid\-year progress should be saved$/) do
+Then(/^my (mid|end)\-year progress should be saved$/) do |phase|
   @report.reload
 
   expected_smart_review = [
@@ -123,13 +132,14 @@ Then(/^my mid\-year progress should be saved$/) do
   expected_development_review = ['Did PRINCE2 course'] + ([''] * 9)
   expected_comment = 'This year has been great so far'
 
-  expect(@report.mid_year_review_smart).to eql(expected_smart_review)
-  expect(@report.mid_year_review_development).to eql(expected_development_review)
-  expect(@report.mid_year_review_comment).to eql(expected_comment)
+  expect(@report.send("#{phase}_year_review_smart")).to eql(expected_smart_review)
+  expect(@report.send("#{phase}_year_review_development")).to eql(expected_development_review)
+  expect(@report.send("#{phase}_year_review_comment")).to eql(expected_comment)
 end
 
-When(/^I change my mid\-year progress against my objectives$/) do
-  @page = UI::Pages::MidYearReview.new
+When(/^I change my (mid|end)\-year progress against my objectives$/) do |phase|
+  page_class = "UI::Pages::#{phase.camelize}YearReview".constantize
+  @page = page_class.new
   @page.load(id: @report.id)
 
   @page.form.smart_objective_what_field_1.set 'Changed'
@@ -143,7 +153,7 @@ When(/^I change my mid\-year progress against my objectives$/) do
   @page.form.save_button.click
 end
 
-Then(/^the changes are saved on my  mid\-year progress$/) do
+Then(/^the changes are saved on my (mid|end)\-year progress$/) do |phase|
   @report.reload
 
   expected_smart_review = [
@@ -154,7 +164,7 @@ Then(/^the changes are saved on my  mid\-year progress$/) do
   ] + ([''] * 8)
   expected_comment = 'Actually, it has not been so good'
 
-  expect(@report.mid_year_review_smart).to eql(expected_smart_review)
-  expect(@report.mid_year_review_development).to eql(expected_development_review)
-  expect(@report.mid_year_review_comment).to eql(expected_comment)
+  expect(@report.send("#{phase}_year_review_smart")).to eql(expected_smart_review)
+  expect(@report.send("#{phase}_year_review_development")).to eql(expected_development_review)
+  expect(@report.send("#{phase}_year_review_comment")).to eql(expected_comment)
 end

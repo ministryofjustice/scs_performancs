@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120160135) do
+ActiveRecord::Schema.define(version: 20150120161553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20150120160135) do
     t.json     "mid_year_review_development", default: []
     t.text     "mid_year_review_comment"
     t.datetime "mid_year_approved_at"
+    t.json     "end_year_review_smart",       default: []
+    t.json     "end_year_review_development", default: []
+    t.text     "end_year_review_comment"
   end
 
   create_table "users", force: :cascade do |t|
