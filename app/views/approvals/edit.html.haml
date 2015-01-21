@@ -1,0 +1,37 @@
+%h1= 'Approve objectives'
+
+= form_for @approval_form, url: report_approval_path(@report, @approval_id), method: :put, html: {class: 'report-form'} do |f|
+  %h2 SMART objectives
+  %table
+    %thead
+      %tr
+        %th Number
+        %th
+          'What'
+        %th
+          'How'
+    %tbody
+      - @report.smart.each_with_index do |smart, n|
+        %tr
+          %td.number= n + 1
+          %td= smart['what']
+          %td= smart['how']
+
+  %h2 Development needs
+  %table
+    %thead
+      %tr
+        %th Number
+        %th Objective
+    %tbody
+      - @report.development.each_with_index do |development, n|
+        %tr
+          %td.number= n +1
+          %td= development
+
+  %h2 Comments
+  = f.text_area :comment
+
+
+  .form-group
+    = f.submit 'Save', class: 'button'

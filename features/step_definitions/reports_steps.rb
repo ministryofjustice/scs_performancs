@@ -177,7 +177,6 @@ Then(/^the changes are saved on my (mid|end)\-year progress$/) do |phase|
   expect(@report.send("#{phase}_year_review_comment")).to eql(expected_comment)
 end
 
-
 When(/^I approve those objectives$/) do
   @current_time = Time.now
 
