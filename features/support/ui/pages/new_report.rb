@@ -1,11 +1,11 @@
-require_relative '../sections/report_form'
+require_relative '../sections/objectives_form'
 
 module UI
   module Pages
     class NewReport < SitePrism::Page
       set_url '/reports/new'
 
-      section :form, UI::Sections::ReportForm, 'form'
+      section :form, UI::Sections::ObjectivesForm, 'form'
     end
   end
 end

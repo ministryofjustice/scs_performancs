@@ -1,4 +1,4 @@
-class ReportForm
+class ObjectivesForm
   DEVELOPMENT_OBJECTIVES = 10
   SMART_OBJECTIVES = 10
 
@@ -26,23 +26,14 @@ class ReportForm
     end
   end
 
-  def self.from_report(report)
-    ReportForm.new.tap do |report_form|
-      process_development(report, report_form)
-      process_smart(report, report_form)
+  def self.allowed_params
+    development_params = (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).map do |n|
+      "development_#{n}"
     end
-  end
+    smart_params = (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
+      ["smart_what_#{n}", "smart_how_#{n}"]
+    end.flatten
 
-  def self.process_smart(report, report_form)
-    report.smart.each_with_index do |s, index|
-      report_form.send("smart_what_#{index + 1}=", s['what'])
-      report_form.send("smart_how_#{index + 1}=", s['how'])
-    end
-  end
-
-  def self.process_development(report, report_form)
-    report.development.each_with_index do |d, index|
-      report_form.send("development_#{index + 1}=", d)
-    end
+    development_params + smart_params
   end
 end

@@ -23,6 +23,7 @@ group :development, :test do
   gem 'jshint',
     git: 'https://github.com/threedaymonk/jshint.git',
     ref: 'b7fb727e07c76f6e388979169ea0c3b95e3075dd'
+  gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false

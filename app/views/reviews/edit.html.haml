@@ -1,0 +1,44 @@
+%h1= "#{@review_id.to_s.titleize} Review"
+
+= form_for @review_form, url: report_review_path(@report, @review_id), method: :put, html: {class: 'report-form'} do |f|
+  %h2 SMART objectives
+  %table
+    %thead
+      %tr
+        %th Number
+        %th
+          'What'
+        %th
+          'How'
+    %tbody
+      - (1..ObjectivesForm::SMART_OBJECTIVES).each do |n|
+        %tr
+          %td.number= n
+          %td= @report.smart[n - 1]['what']
+          %td= @report.smart[n - 1]['how']
+        %tr
+          %td review
+          %td.what= f.text_area "smart_what_#{n}"
+          %td.how= f.text_area "smart_how_#{n}"
+
+  %h2 Development needs
+  %table
+    %thead
+      %tr
+        %th Number
+        %th Objective
+    %tbody
+      - (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
+        %tr
+          %td.number= n
+          %td= @report.development[n - 1]
+        %tr
+          %td.number
+          %td= f.text_area "development_#{n}"
+
+  %h2 Additional comments
+  = f.text_area :comment
+
+
+  .form-group
+    = f.submit 'Save', class: 'button'

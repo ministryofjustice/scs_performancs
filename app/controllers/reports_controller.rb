@@ -1,10 +1,10 @@
 class ReportsController < ApplicationController
   def new
-    @report_form = ReportForm.new
+    @report_form = ObjectivesForm.new
   end
 
   def create
-    @report_form = ReportForm.new(report_params)
+    @report_form = ObjectivesForm.new(objectives_params)
     Report.create(
         development: @report_form.development_as_json,
         smart: @report_form.smart_as_json
@@ -19,11 +19,11 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    @report_form = ReportForm.from_report(@report)
+    @report_form = ReportFormFactory.new(@report).objectives
   end
 
   def update
-    @report_form = ReportForm.new(report_params)
+    @report_form = ObjectivesForm.new(objectives_params)
     report = Report.find(params[:id])
     report.update(
         development: @report_form.development_as_json,
@@ -33,14 +33,23 @@ class ReportsController < ApplicationController
     redirect_to action: :index
   end
 
-  def report_params
-    development_params = (1..ReportForm::DEVELOPMENT_OBJECTIVES).map do |n|
-      "development_#{n}"
-    end
-    smart_params = (1..ReportForm::SMART_OBJECTIVES).map do |n|
-      ["smart_what_#{n}", "smart_how_#{n}"]
-    end.flatten
+  def approve
+    @report = Report.find(params[:id])
+    @report.update(approved_at: Time.now) unless @report.approved?
 
-    params.require(:report_form).permit(*(development_params + smart_params))
+    redirect_to action: :index
+  end
+
+  def mid_year_approve
+    @report = Report.find(params[:id])
+    @report.update(mid_year_approved_at: Time.now) unless @report.mid_year_approved?
+
+    redirect_to action: :index
+  end
+
+private
+
+  def objectives_params
+    params.require(:objectives_form).permit(*ObjectivesForm.allowed_params)
   end
 end
