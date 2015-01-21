@@ -1,7 +1,15 @@
+Given(/^I am a manager$/) do
+  # This will change when user roles are introduced
+end
+
 Given(/^I have no reports created$/) do
 end
 
 Given(/^I have an existing report$/) do
+  @report = FactoryGirl.create(:filled_in_report)
+end
+
+Given(/^I one of my employees has their objectives set$/) do
   @report = FactoryGirl.create(:filled_in_report)
 end
 
@@ -167,4 +175,30 @@ Then(/^the changes are saved on my (mid|end)\-year progress$/) do |phase|
   expect(@report.send("#{phase}_year_review_smart")).to eql(expected_smart_review)
   expect(@report.send("#{phase}_year_review_development")).to eql(expected_development_review)
   expect(@report.send("#{phase}_year_review_comment")).to eql(expected_comment)
+end
+
+
+When(/^I approve those objectives$/) do
+  @current_time = Time.now
+
+  @page = UI::Pages::ApproveObjectives.new
+  @page.load(id: @report.id)
+
+  @page.form.comment.set 'These look good'
+
+  Timecop.freeze(@current_time) do
+    @page.form.approve_button.click
+  end
+end
+
+Then(/^The objectives are approved$/) do
+  @report.reload
+
+  expect(@report.approved_comment).to eql('These look good')
+  expect(@report.approved_at).to eql(@current_time)
+end
+
+Then(/^The snapshot of those objectives is stored$/) do
+  expect(@report.approved_snapshot_development).to eql(@report.development)
+  expect(@report.approved_snapshot_smart).to eql(@report.smart)
 end

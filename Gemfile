@@ -13,9 +13,10 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 group :test do
-  gem 'rspec-mocks'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'rspec-mocks'
+  gem 'timecop'
 end
 
 group :development, :test do
