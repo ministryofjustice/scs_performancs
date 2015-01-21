@@ -194,7 +194,7 @@ Then(/^The objectives are approved$/) do
   @report.reload
 
   expect(@report.approved_comment).to eql('These look good')
-  expect(@report.approved_at).to eql(@current_time)
+  expect(@report.approved_at.to_i).to eql(@current_time.to_i)
 end
 
 Then(/^The snapshot of those objectives is stored$/) do

@@ -57,7 +57,7 @@ RSpec.describe Report, type: :model do
     end
 
     it 'stores the time of approval as current time' do
-      expect(subject.approved_at).to eql(current_time)
+      expect(subject.approved_at.to_i).to eql(current_time.to_i)
     end
 
     it 'stores the comment' do
