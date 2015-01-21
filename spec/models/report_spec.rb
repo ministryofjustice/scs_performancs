@@ -39,4 +39,37 @@ RSpec.describe Report, type: :model do
       it { is_expected.to be false }
     end
   end
+
+  describe '#approve!' do
+    let(:current_time) { Time.now }
+    let(:development_objectives) { ['DEVELOPMENT OBJECTIVES'] }
+    let(:smart_objectives) { ['SMART_OBJECTIVES'] }
+    let(:comment) { 'COMMENT' }
+    let(:attributes) { { development: development_objectives, smart: smart_objectives } }
+    subject { described_class.new(attributes) }
+
+    before do
+      Timecop.freeze(current_time) do
+        subject.approve!(comment)
+      end
+
+      subject.reload
+    end
+
+    it 'stores the time of approval as current time' do
+      expect(subject.approved_at).to eql(current_time)
+    end
+
+    it 'stores the comment' do
+      expect(subject.approved_comment).to eql(comment)
+    end
+
+    it 'stores a snapshot of the current development objectives' do
+      expect(subject.approved_snapshot_development).to eql(subject.development)
+    end
+
+    it 'stores a snapshot of the current smart objectives' do
+      expect(subject.approved_snapshot_smart).to eql(subject.smart)
+    end
+  end
 end
