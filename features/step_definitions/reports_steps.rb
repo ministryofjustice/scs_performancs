@@ -21,6 +21,10 @@ Given(/^I have some objectives with mid\-year progress$/) do
   @report = FactoryGirl.create(:report_with_mid_year_review)
 end
 
+Given(/^I one of my employees has their mid\-year review filled$/) do
+  @report = FactoryGirl.create(:report_with_mid_year_review)
+end
+
 Given(/^I have some objectives and mid\-year review approved$/) do
   @report = FactoryGirl.create(:report_with_mid_year_approved)
 end
@@ -200,4 +204,29 @@ end
 Then(/^The snapshot of those objectives is stored$/) do
   expect(@report.approved_snapshot_development).to eql(@report.development)
   expect(@report.approved_snapshot_smart).to eql(@report.smart)
+end
+
+When(/^I approve this mid\-year review$/) do
+  @current_time = Time.now
+
+  @page = UI::Pages::ApproveMidYearReview.new
+  @page.load(id: @report.id)
+
+  @page.form.comment.set 'You should speed up'
+
+  Timecop.freeze(@current_time) do
+    @page.form.approve_button.click
+  end
+end
+
+Then(/^The review is approved$/) do
+  @report.reload
+
+  expect(@report.mid_year_review_approved_comment).to eql('You should speed up')
+  expect(@report.mid_year_review_approved_at.to_i).to eql(@current_time.to_i)
+end
+
+And(/^The snapshot the objectives is stored$/) do
+  expect(@report.mid_year_review_snapshot_development).to eql(@report.development)
+  expect(@report.mid_year_review_snapshot_smart).to eql(@report.smart)
 end
