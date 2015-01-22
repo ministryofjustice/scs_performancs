@@ -9,6 +9,10 @@ class Report < ActiveRecord::Base
     !mid_year_approved_at.nil?
   end
 
+  def end_year_approved?
+    !end_year_approved_at.nil?
+  end
+
   def approve!(stage, comment)
     stage_prefix = stage == :initial ? '' : "#{stage}_"
 

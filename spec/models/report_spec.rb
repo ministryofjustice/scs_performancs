@@ -40,6 +40,20 @@ RSpec.describe Report, type: :model do
     end
   end
 
+  describe '#end_year_approved?' do
+    let(:attributes) { {} }
+    subject { described_class.new(attributes).end_year_approved? }
+
+    context 'when end_year_approved_at is set' do
+      let(:attributes) { { end_year_approved_at: 1.days.ago } }
+      it { is_expected.to be true }
+    end
+
+    context 'when end_year_approved_at is null' do
+      it { is_expected.to be false }
+    end
+  end
+
   describe '#approve!' do
     let(:current_time) { Time.now }
     let(:development_objectives) { ['DEVELOPMENT OBJECTIVES'] }

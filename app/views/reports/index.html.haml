@@ -11,11 +11,16 @@
         %tr
           %td= report.id
           %td
-            = link_to('edit', edit_report_path(report))
+            - unless report.end_year_approved?
+              = link_to('edit', edit_report_path(report))
+
             - if report.approved?
               - if report.mid_year_approved?
-                = link_to('end year review', edit_report_review_path(report, :end_year))
-                = link_to('end year approve', edit_report_approval_path(report, :end_year))
+                - if report.end_year_approved?
+                  This report is closed
+                - else
+                  = link_to('end year review', edit_report_review_path(report, :end_year))
+                  = link_to('end year approve', edit_report_approval_path(report, :end_year))
               - else
                 = link_to('mid year review', edit_report_review_path(report, :mid_year))
                 = link_to('mid year approve', edit_report_approval_path(report, :mid_year))
