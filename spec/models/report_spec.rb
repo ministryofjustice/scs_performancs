@@ -76,7 +76,7 @@ RSpec.describe Report, type: :model do
       end
     end
 
-    [:mid_year].each do |stage|
+    [:mid_year, :end_year].each do |stage|
       context "for #{stage} stage" do
         let(:stage) { stage }
 

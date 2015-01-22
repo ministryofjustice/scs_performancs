@@ -21,6 +21,11 @@
             %td Mid Year Review
             %td= @report.mid_year_review_smart[n]['what']
             %td= @report.mid_year_review_smart[n]['how']
+        - if @approval_id == :end_year
+          %tr
+            %td End Year Review
+            %td= @report.end_year_review_smart[n]['what']
+            %td= @report.end_year_review_smart[n]['how']
 
 
   %h2 Development needs
@@ -38,6 +43,10 @@
           %tr
             %td Mid Year Review
             %td= @report.mid_year_review_development[n]
+        - if @approval_id == :end_year
+          %tr
+            %td End Year Review
+            %td= @report.end_year_review_development[n]
 
   %h2 Comments
   = f.text_area :comment

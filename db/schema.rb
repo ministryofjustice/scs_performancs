@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121173104) do
+ActiveRecord::Schema.define(version: 20150122121152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 20150121173104) do
     t.text     "mid_year_approved_comment"
     t.json     "mid_year_approved_snapshot_development"
     t.json     "mid_year_approved_snapshot_smart"
+    t.datetime "end_year_approved_at"
+    t.text     "end_year_approved_comment"
+    t.json     "end_year_approved_snapshot_development"
+    t.json     "end_year_approved_snapshot_smart"
   end
 
   create_table "users", force: :cascade do |t|

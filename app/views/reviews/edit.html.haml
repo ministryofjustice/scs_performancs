@@ -1,4 +1,5 @@
-%h1= "#{@review_id.to_s.titleize} Review"
+- title = "#{@review_id.to_s.titleize} Review"
+%h1= title
 
 = form_for @review_form, url: report_review_path(@report, @review_id), method: :put, html: {class: 'report-form'} do |f|
   %h2 SMART objectives
@@ -16,8 +17,13 @@
           %td.number= n
           %td= @report.smart[n - 1]['what']
           %td= @report.smart[n - 1]['how']
+        - if @review_id == :end_year
+          %tr
+            %td Mid Year Review
+            %td= @report.mid_year_review_smart[n - 1]['what']
+            %td= @report.mid_year_review_smart[n - 1]['how']
         %tr
-          %td review
+          %td= title
           %td.what= f.text_area "smart_what_#{n}"
           %td.how= f.text_area "smart_how_#{n}"
 
@@ -32,8 +38,12 @@
         %tr
           %td.number= n
           %td= @report.development[n - 1]
+        - if @review_id == :end_year
+          %tr
+            %td Mid Year Review
+            %td= @report.mid_year_review_development[n - 1]
         %tr
-          %td.number
+          %td= title
           %td= f.text_area "development_#{n}"
 
   %h2 Additional comments

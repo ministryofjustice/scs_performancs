@@ -17,7 +17,6 @@ Feature:
     Then The review is approved
     And The snapshot of the objectives is stored
 
-  @wip
   Scenario: Manager approves end-year progress
     Given I am a manager
     And I one of my employees has their end-year review filled
