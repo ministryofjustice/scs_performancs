@@ -33,20 +33,6 @@ class ReportsController < ApplicationController
     redirect_to action: :index
   end
 
-  def approve
-    @report = Report.find(params[:id])
-    @report.update(approved_at: Time.now) unless @report.approved?
-
-    redirect_to action: :index
-  end
-
-  def mid_year_approve
-    @report = Report.find(params[:id])
-    @report.update(mid_year_approved_at: Time.now) unless @report.mid_year_approved?
-
-    redirect_to action: :index
-  end
-
 private
 
   def objectives_params

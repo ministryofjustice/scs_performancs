@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   def edit
-    @review_id = params[:id]
+    @review_id = params[:id].to_sym
     @report = Report.find(params[:report_id])
     @review_form = ReportFormFactory.new(@report).review(@review_id)
   end

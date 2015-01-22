@@ -1,7 +1,15 @@
+Given(/^I am a manager$/) do
+  # This will change when user roles are introduced
+end
+
 Given(/^I have no reports created$/) do
 end
 
 Given(/^I have an existing report$/) do
+  @report = FactoryGirl.create(:filled_in_report)
+end
+
+Given(/^I one of my employees has their objectives set$/) do
   @report = FactoryGirl.create(:filled_in_report)
 end
 
@@ -13,11 +21,19 @@ Given(/^I have some objectives with mid\-year progress$/) do
   @report = FactoryGirl.create(:report_with_mid_year_review)
 end
 
+Given(/^I one of my employees has their mid\-year review filled$/) do
+  @report = FactoryGirl.create(:report_with_mid_year_review)
+end
+
 Given(/^I have some objectives and mid\-year review approved$/) do
   @report = FactoryGirl.create(:report_with_mid_year_approved)
 end
 
 Given(/^I have some objectives, mid\-year review and end\-year review in progress$/) do
+  @report = FactoryGirl.create(:report_with_end_year_review)
+end
+
+Given(/^I one of my employees has their end\-year review filled$/) do
   @report = FactoryGirl.create(:report_with_end_year_review)
 end
 
@@ -167,4 +183,56 @@ Then(/^the changes are saved on my (mid|end)\-year progress$/) do |phase|
   expect(@report.send("#{phase}_year_review_smart")).to eql(expected_smart_review)
   expect(@report.send("#{phase}_year_review_development")).to eql(expected_development_review)
   expect(@report.send("#{phase}_year_review_comment")).to eql(expected_comment)
+end
+
+When(/^I approve those objectives$/) do
+  @current_time = Time.now
+
+  @page = UI::Pages::ApproveObjectives.new
+  @page.load(id: @report.id)
+
+  @page.form.comment.set 'These look good'
+
+  Timecop.freeze(@current_time) do
+    @page.form.approve_button.click
+  end
+end
+
+Then(/^The objectives are approved$/) do
+  @report.reload
+
+  expect(@report.approved_comment).to eql('These look good')
+  expect(@report.approved_at.to_i).to eql(@current_time.to_i)
+end
+
+Then(/^The snapshot of those objectives is stored$/) do
+  expect(@report.approved_snapshot_development).to eql(@report.development)
+  expect(@report.approved_snapshot_smart).to eql(@report.smart)
+end
+
+When(/^I approve this (mid|end)\-year review$/) do |phase|
+  @current_time = Time.now
+  @phase = "#{phase}_year"
+
+  page_class = "UI::Pages::Approve#{phase.camelize}YearReview".constantize
+  @page = page_class.new
+  @page.load(id: @report.id)
+
+  @page.form.comment.set 'You should speed up'
+
+  Timecop.freeze(@current_time) do
+    @page.form.approve_button.click
+  end
+end
+
+Then(/^The review is approved$/) do
+  @report.reload
+
+  expect(@report.send("#{@phase}_approved_comment")).to eql('You should speed up')
+  expect(@report.send("#{@phase}_approved_at").to_i).to eql(@current_time.to_i)
+end
+
+And(/^The snapshot of the objectives is stored$/) do
+  expect(@report.send("#{@phase}_approved_snapshot_development")).to eql(@report.development)
+  expect(@report.send("#{@phase}_approved_snapshot_smart")).to eql(@report.smart)
 end
