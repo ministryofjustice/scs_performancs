@@ -10,7 +10,6 @@ Feature:
     Then The objectives are approved
     And The snapshot of those objectives is stored
 
-  @wip
   Scenario: Manager approves mid-year progress
     Given I am a manager
     And I one of my employees has their mid-year review filled

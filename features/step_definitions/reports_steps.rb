@@ -222,11 +222,11 @@ end
 Then(/^The review is approved$/) do
   @report.reload
 
-  expect(@report.mid_year_review_approved_comment).to eql('You should speed up')
-  expect(@report.mid_year_review_approved_at.to_i).to eql(@current_time.to_i)
+  expect(@report.mid_year_approved_comment).to eql('You should speed up')
+  expect(@report.mid_year_approved_at.to_i).to eql(@current_time.to_i)
 end
 
 And(/^The snapshot the objectives is stored$/) do
-  expect(@report.mid_year_review_snapshot_development).to eql(@report.development)
-  expect(@report.mid_year_review_snapshot_smart).to eql(@report.smart)
+  expect(@report.mid_year_approved_snapshot_development).to eql(@report.development)
+  expect(@report.mid_year_approved_snapshot_smart).to eql(@report.smart)
 end

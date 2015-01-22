@@ -1,4 +1,4 @@
-%h1= 'Approve objectives'
+%h1= @approval_id == :initial ? 'Approve objectives' : "Approve #{@approval_id.to_s.titleize} Review"
 
 = form_for @approval_form, url: report_approval_path(@report, @approval_id), method: :put, html: {class: 'report-form'} do |f|
   %h2 SMART objectives
@@ -16,6 +16,12 @@
           %td.number= n + 1
           %td= smart['what']
           %td= smart['how']
+        - if [:mid_year, :end_year].include?(@approval_id)
+          %tr
+            %td Mid Year Review
+            %td= @report.mid_year_review_smart[n]['what']
+            %td= @report.mid_year_review_smart[n]['how']
+
 
   %h2 Development needs
   %table
@@ -28,6 +34,10 @@
         %tr
           %td.number= n +1
           %td= development
+        - if [:mid_year, :end_year].include?(@approval_id)
+          %tr
+            %td Mid Year Review
+            %td= @report.mid_year_review_development[n]
 
   %h2 Comments
   = f.text_area :comment

@@ -9,12 +9,14 @@ class Report < ActiveRecord::Base
     !mid_year_approved_at.nil?
   end
 
-  def approve!(comment)
+  def approve!(stage, comment)
+    stage_prefix = stage == :initial ? '' : "#{stage}_"
+
     update(
-      approved_comment: comment,
-      approved_at: Time.now,
-      approved_snapshot_development: development,
-      approved_snapshot_smart: smart
+      "#{stage_prefix}approved_comment" => comment,
+      "#{stage_prefix}approved_at" => Time.now,
+      "#{stage_prefix}approved_snapshot_development" => development,
+      "#{stage_prefix}approved_snapshot_smart" => smart
     )
   end
 end
