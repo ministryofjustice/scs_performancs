@@ -3,7 +3,7 @@ module UI
     class Login < SitePrism::Page
       set_url '/tokens/new'
 
-      element :email_field, '#token_email'
+      element :email_field, '#token_request_form_email'
 
       element :request_button, 'input.button'
     end

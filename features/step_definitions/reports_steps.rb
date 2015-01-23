@@ -1,5 +1,5 @@
 Given(/^I am an employee$/) do
-  # This will change when user roles are introduced
+  @user = FactoryGirl.create(:user)
 end
 
 Given(/^I am a manager$/) do
@@ -242,17 +242,15 @@ And(/^The snapshot of the objectives is stored$/) do
 end
 
 When(/^I request access using my e\-mail$/) do
-  @email = 'jakub.novotny@digital.justice.gov.uk'
-
   page = UI::Pages::Login.new
   page.load
 
-  page.email_field.set @email
+  page.email_field.set @user.email
   page.request_button.click
 end
 
 When(/^I click on the link in the e\-mail$/) do
-  open_email(@email)
+  open_email(@user.email)
 
   # host = Rails.configuration.action_mailer[:default_url_options][:host]
   link = current_email.body.match(%r{^https?://.*$})[0]
@@ -262,6 +260,9 @@ end
 Then(/^I should see a dashboard page with my performance reports$/) do
   page = UI::Pages::Dashboard.new
   page.displayed?
+
+  expect(page.reports.size).to eql(1)
+  expect(page.reports.first.text).to eql(@report.id.to_s)
 end
 
 And(/^I should see performance reports of my employees$/) do
