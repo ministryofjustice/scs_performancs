@@ -1,3 +1,7 @@
+Given(/^I am an employee$/) do
+  # This will change when user roles are introduced
+end
+
 Given(/^I am a manager$/) do
   # This will change when user roles are introduced
 end
@@ -235,4 +239,31 @@ end
 And(/^The snapshot of the objectives is stored$/) do
   expect(@report.send("#{@phase}_approved_snapshot_development")).to eql(@report.development)
   expect(@report.send("#{@phase}_approved_snapshot_smart")).to eql(@report.smart)
+end
+
+When(/^I request access using my e\-mail$/) do
+  @email = 'jakub.novotny@digital.justice.gov.uk'
+
+  page = UI::Pages::Login.new
+  page.load
+
+  page.email_field.set @email
+  page.request_button.click
+end
+
+When(/^I click on the link in the e\-mail$/) do
+  open_email(@email)
+
+  # host = Rails.configuration.action_mailer[:default_url_options][:host]
+  link = current_email.body.match(%r{^https?://.*$})[0]
+  visit(link)
+end
+
+Then(/^I should see a dashboard page with my performance reports$/) do
+  page = UI::Pages::Dashboard.new
+  page.displayed?
+end
+
+And(/^I should see performance reports of my employees$/) do
+  pending
 end
