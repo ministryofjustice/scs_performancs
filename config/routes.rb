@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root to: redirect('/reports')
 
   resources :reports, only: [:new, :create, :index, :edit, :update] do
     resources :approvals, only: [:edit, :update], constraints: { id: /initial|mid_year|end_year/ }
