@@ -22,7 +22,11 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    @report_form = ReportFormFactory.new(@report).objectives
+    if (@report.user == current_user)
+      @report_form = ReportFormFactory.new(@report).objectives
+    else
+      forbidden
+    end
   end
 
   def update

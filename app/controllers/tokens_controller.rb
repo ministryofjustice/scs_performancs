@@ -5,10 +5,7 @@ class TokensController < ApplicationController
 
   def create
     @token_request_form = TokenRequestForm.new(token_params)
-    if @token_request_form.valid? && (user = User.where(email: @token_request_form.email).first)
-      token = user.tokens.create
-      TokenMailer.request_email(user, token).deliver_later
-    else
+    unless @token_request_form.valid? && send_token(@token_request_form.email)
       render :new
     end
   end
@@ -24,5 +21,13 @@ private
 
   def token_params
     params.require(:token_request_form).permit(:email)
+  end
+
+  def send_token(email)
+    user = User.where(email: email).first
+    if user
+      token = user.tokens.create
+      TokenMailer.request_email(user, token).deliver_later
+    end
   end
 end

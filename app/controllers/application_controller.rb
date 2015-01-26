@@ -18,4 +18,8 @@ private
   def ensure_user
     user_logged_in? || redirect_to(new_token_path)
   end
+
+  def forbidden
+    render 'shared/forbidden', status: :forbidden
+  end
 end

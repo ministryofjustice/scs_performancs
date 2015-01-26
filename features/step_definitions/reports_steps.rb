@@ -297,3 +297,12 @@ And(/^I should see performance reports of my employees$/) do
 
   expect(ids_on_page).to eql(ids_in_db)
 end
+
+When(/^I try to change my employee's objectives$/) do
+  @page = UI::Pages::EditReport.new
+  @page.load(id: @employees_reports.first.id)
+end
+
+Then(/^I get an access error$/) do
+  expect(@page.status_code).to be 403
+end

@@ -42,9 +42,6 @@
         %tr
           %td= report.id
           %td
-            - unless report.end_year_approved?
-              = link_to('edit', edit_report_path(report))
-
             - if report.approved?
               - if report.mid_year_approved?
                 - if report.end_year_approved?
