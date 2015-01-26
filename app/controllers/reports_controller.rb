@@ -17,6 +17,7 @@ class ReportsController < ApplicationController
 
   def index
     @reports = current_user.reports.all
+    @employees_reports = current_user.employees_reports
   end
 
   def edit

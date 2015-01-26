@@ -13,9 +13,10 @@ Feature:
     And I click on the link in the e-mail
     Then I should see a dashboard page with my performance reports
 
-  @wip
   Scenario: viewing my dashboard when I have employees
     Given I am a manager
+    And I have an existing report
+    And I have employees with reports filled
     When I request access using my e-mail
     And I click on the link in the e-mail
     Then I should see a dashboard page with my performance reports

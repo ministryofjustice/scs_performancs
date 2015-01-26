@@ -16,6 +16,17 @@ Given(/^I am a manager$/) do
   @user = FactoryGirl.create(:user)
 end
 
+And(/^I have employees with reports filled$/) do
+  @employees = [
+    FactoryGirl.create(:user, manager: @user),
+    FactoryGirl.create(:user, manager: @user)
+  ]
+  @employees_reports = [
+    FactoryGirl.create(:filled_in_report, user: @employees[0]),
+    FactoryGirl.create(:filled_in_report, user: @employees[1])
+  ]
+end
+
 Given(/^I have no reports created$/) do
 end
 
@@ -276,5 +287,13 @@ Then(/^I should see a dashboard page with my performance reports$/) do
 end
 
 And(/^I should see performance reports of my employees$/) do
-  pending
+  page = UI::Pages::Dashboard.new
+  page.displayed?
+
+  expect(page.employees_reports.size).to eql(@employees_reports.size)
+
+  ids_on_page = page.employees_reports.map(&:text)
+  ids_in_db = @employees_reports.map { |r| r.id.to_s }
+
+  expect(ids_on_page).to eql(ids_in_db)
 end

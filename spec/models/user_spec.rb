@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to have_many(:tokens) }
   it { is_expected.to have_many(:reports) }
+  it { is_expected.to have_many(:employees_reports).through(:employees).source(:reports) }
 
   context "to_s" do
     it "uses name if available" do

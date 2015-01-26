@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    name 'Peter Civil'
-    email 'peter.civil@digital.justice.gov.uk'
+    name { Faker::Name.name }
+    email { Faker::Internet.safe_email(name) }
   end
 end
