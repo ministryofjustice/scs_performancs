@@ -137,18 +137,6 @@ Then(/^the changes are saved on the report$/) do
   expect(@report.smart).to match_array(expected_smart)
 end
 
-When(/^I display the reports page$/) do
-  @page = UI::Pages::ReportsList.new
-  @page.load
-end
-
-Then(/^I can see the existing report on the page$/) do
-  report_ids = @page.report_ids.map { |element| element.text.to_i }
-
-  expect(report_ids.size).to be(1)
-  expect(report_ids.first).to eql(@report.id)
-end
-
 When(/^I enter my (mid|end)\-year progress against my objectives$/) do |phase|
   page_class = "UI::Pages::#{phase.camelize}YearReview".constantize
   @page = page_class.new
