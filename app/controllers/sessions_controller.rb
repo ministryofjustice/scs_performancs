@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :ensure_user
+
   def destroy
     session.delete(:user_id)
 

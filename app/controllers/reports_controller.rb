@@ -1,11 +1,13 @@
 class ReportsController < ApplicationController
+  before_action :ensure_user
+
   def new
     @report_form = ObjectivesForm.new
   end
 
   def create
     @report_form = ObjectivesForm.new(objectives_params)
-    Report.create(
+    current_user.reports.create(
         development: @report_form.development_as_json,
         smart: @report_form.smart_as_json
     )
@@ -14,7 +16,7 @@ class ReportsController < ApplicationController
   end
 
   def index
-    @reports = Report.all
+    @reports = current_user.reports.all
   end
 
   def edit

@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :ensure_user
+
   def edit
     @review_id = params[:id].to_sym
     @report = Report.find(params[:report_id])

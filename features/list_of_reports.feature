@@ -3,6 +3,9 @@ Feature:
   I want to see the list of all existing reports
   So that I can change them
 
+  Background:
+    Given I am an employee
+    And I log in
 
   Scenario: Employee lists existing reports
     Given I have an existing report

@@ -3,6 +3,9 @@ Feature:
   I want a quick and easy way to access my personal 'dashboard'
   So that I can access my appraisal documents
 
+  Background:
+    Given There are some users and reports already in the system
+
   Scenario: logging in and seeing my dashboard
     Given I am an employee
     And I have an existing report

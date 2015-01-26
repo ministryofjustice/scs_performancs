@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123144057) do
+ActiveRecord::Schema.define(version: 20150126123332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,10 @@ ActiveRecord::Schema.define(version: 20150123144057) do
     t.text     "end_year_approved_comment"
     t.json     "end_year_approved_snapshot_development"
     t.json     "end_year_approved_snapshot_smart"
+    t.integer  "user_id"
   end
+
+  add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
 
   create_table "tokens", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -60,4 +63,5 @@ ActiveRecord::Schema.define(version: 20150123144057) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["manager_id"], name: "index_users_on_manager_id", using: :btree
 
+  add_foreign_key "reports", "users"
 end

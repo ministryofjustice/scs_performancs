@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   subject { described_class.new }
 
   it { is_expected.to have_many(:tokens) }
+  it { is_expected.to have_many(:reports) }
 
   context "to_s" do
     it "uses name if available" do

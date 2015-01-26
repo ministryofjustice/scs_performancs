@@ -1,4 +1,6 @@
 class ApprovalsController < ApplicationController
+  before_action :ensure_user
+
   def edit
     @approval_id = params[:id].to_sym
     @report = Report.find(params[:report_id])

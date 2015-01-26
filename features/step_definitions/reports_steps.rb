@@ -1,16 +1,26 @@
+Given(/^There are some users and reports already in the system$/) do
+  (1..4).each do |_|
+    FactoryGirl.create(:report)
+  end
+end
+
 Given(/^I am an employee$/) do
   @user = FactoryGirl.create(:user)
 end
 
+Given(/^I log in/) do
+  login_as(@user)
+end
+
 Given(/^I am a manager$/) do
-  # This will change when user roles are introduced
+  @user = FactoryGirl.create(:user)
 end
 
 Given(/^I have no reports created$/) do
 end
 
 Given(/^I have an existing report$/) do
-  @report = FactoryGirl.create(:filled_in_report)
+  @report = FactoryGirl.create(:filled_in_report, user: @user)
 end
 
 Given(/^I one of my employees has their objectives set$/) do
@@ -18,11 +28,11 @@ Given(/^I one of my employees has their objectives set$/) do
 end
 
 Given(/^I have some objectives approved$/) do
-  @report = FactoryGirl.create(:approved_report)
+  @report = FactoryGirl.create(:approved_report, user: @user)
 end
 
 Given(/^I have some objectives with mid\-year progress$/) do
-  @report = FactoryGirl.create(:report_with_mid_year_review)
+  @report = FactoryGirl.create(:report_with_mid_year_review, user: @user)
 end
 
 Given(/^I one of my employees has their mid\-year review filled$/) do
@@ -30,11 +40,11 @@ Given(/^I one of my employees has their mid\-year review filled$/) do
 end
 
 Given(/^I have some objectives and mid\-year review approved$/) do
-  @report = FactoryGirl.create(:report_with_mid_year_approved)
+  @report = FactoryGirl.create(:report_with_mid_year_approved, user: @user)
 end
 
 Given(/^I have some objectives, mid\-year review and end\-year review in progress$/) do
-  @report = FactoryGirl.create(:report_with_end_year_review)
+  @report = FactoryGirl.create(:report_with_end_year_review, user: @user)
 end
 
 Given(/^I one of my employees has their end\-year review filled$/) do
