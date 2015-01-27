@@ -43,6 +43,10 @@ Given(/^I have some objectives approved$/) do
   @report = FactoryGirl.create(:approved_report, user: @user)
 end
 
+Given(/^one of my employees has their objectives approved$/) do
+  @employee_report = FactoryGirl.create(:approved_report, user: @employee)
+end
+
 Given(/^I have some objectives with mid\-year progress$/) do
   @report = FactoryGirl.create(:report_with_mid_year_review, user: @user)
 end
@@ -53,6 +57,10 @@ end
 
 Given(/^I have some objectives and mid\-year review approved$/) do
   @report = FactoryGirl.create(:report_with_mid_year_approved, user: @user)
+end
+
+Given(/^one of my employees has their mid\-year review approved$/) do
+  @employee_report = FactoryGirl.create(:report_with_mid_year_approved, user: @employee)
 end
 
 Given(/^I have some objectives, mid\-year review and end\-year review in progress$/) do
@@ -151,6 +159,12 @@ When(/^I enter my (mid|end)\-year progress against my objectives$/) do |phase|
   @page.form.comment.set 'This year has been great so far'
 
   @page.form.save_button.click
+end
+
+When(/^I try to enter my employee's (mid|end)-year review$/) do |phase|
+  page_class = "UI::Pages::#{phase.camelize}YearReview".constantize
+  @page = page_class.new
+  @page.load(id: @employee_report.id)
 end
 
 Then(/^my (mid|end)\-year progress should be saved$/) do |phase|

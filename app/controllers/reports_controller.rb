@@ -32,17 +32,25 @@ class ReportsController < ApplicationController
   def update
     @report_form = ObjectivesForm.new(objectives_params)
     report = Report.find(params[:id])
-    report.update(
-        development: @report_form.development_as_json,
-        smart: @report_form.smart_as_json
-    )
+    if report.user == current_user
+      update_report(report, @report_form)
 
-    redirect_to action: :index
+      redirect_to action: :index
+    else
+      forbidden
+    end
   end
 
 private
 
   def objectives_params
     params.require(:objectives_form).permit(*ObjectivesForm.allowed_params)
+  end
+
+  def update_report(report, report_form)
+    report.update(
+        development: report_form.development_as_json,
+        smart: report_form.smart_as_json
+    )
   end
 end

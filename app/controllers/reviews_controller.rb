@@ -4,16 +4,24 @@ class ReviewsController < ApplicationController
   def edit
     @review_id = params[:id].to_sym
     @report = Report.find(params[:report_id])
-    @review_form = ReportFormFactory.new(@report).review(@review_id)
+    if @report.user == current_user
+      @review_form = ReportFormFactory.new(@report).review(@review_id)
+    else
+      forbidden
+    end
   end
 
   def update
     report = Report.find(params[:report_id])
-    review_form = ReviewForm.new(review_params)
+    if report.user == current_user
+      review_form = ReviewForm.new(review_params)
 
-    update_report(report, review_form)
+      update_report(report, review_form)
 
-    redirect_to controller: :reports, action: :index
+      redirect_to controller: :reports, action: :index
+    else
+      forbidden
+    end
   end
 
 private
