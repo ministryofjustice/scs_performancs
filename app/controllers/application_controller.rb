@@ -22,4 +22,20 @@ private
   def forbidden
     render 'shared/forbidden', status: :forbidden
   end
+
+  def employee_only(report, &action)
+    if report.user == current_user
+      action.call
+    else
+      forbidden
+    end
+  end
+
+  def manager_only(report, &action)
+    if report.user.manager == current_user
+      action.call
+    else
+      forbidden
+    end
+  end
 end

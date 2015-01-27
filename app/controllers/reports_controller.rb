@@ -22,22 +22,18 @@ class ReportsController < ApplicationController
 
   def edit
     @report = Report.find(params[:id])
-    if (@report.user == current_user)
+    employee_only(@report) do
       @report_form = ReportFormFactory.new(@report).objectives
-    else
-      forbidden
     end
   end
 
   def update
     @report_form = ObjectivesForm.new(objectives_params)
     report = Report.find(params[:id])
-    if report.user == current_user
+    employee_only(report) do
       update_report(report, @report_form)
 
       redirect_to action: :index
-    else
-      forbidden
     end
   end
 

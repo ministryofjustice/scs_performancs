@@ -4,19 +4,19 @@ class ApprovalsController < ApplicationController
   def edit
     @approval_id = params[:id].to_sym
     @report = Report.find(params[:report_id])
-    if @report.user.manager == current_user
+    manager_only(@report) do
       @approval_form = ApprovalForm.new
-    else
-      forbidden
     end
   end
 
   def update
     report = Report.find(params[:report_id])
-    approval_form = ApprovalForm.new(approval_params)
-    report.approve!(params[:id].to_sym, approval_form.comment)
+    manager_only(report) do
+      approval_form = ApprovalForm.new(approval_params)
+      report.approve!(params[:id].to_sym, approval_form.comment)
 
-    redirect_to controller: :reports, action: :index
+      redirect_to controller: :reports, action: :index
+    end
   end
 
 private
