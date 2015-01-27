@@ -1,4 +1,6 @@
 class Report < ActiveRecord::Base
+  belongs_to :user
+
   default_scope { order(:id) }
 
   def approved?

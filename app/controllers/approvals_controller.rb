@@ -1,18 +1,22 @@
 class ApprovalsController < ApplicationController
+  before_action :ensure_user
+
   def edit
     @approval_id = params[:id].to_sym
     @report = Report.find(params[:report_id])
-    @approval_form = ApprovalForm.new
+    manager_only(@report) do
+      @approval_form = ApprovalForm.new
+    end
   end
 
   def update
-    approval_id = params[:id].to_sym
-    @report = Report.find(params[:report_id])
-    @approval_form = ApprovalForm.new(approval_params)
+    report = Report.find(params[:report_id])
+    manager_only(report) do
+      approval_form = ApprovalForm.new(approval_params)
+      report.approve!(params[:id].to_sym, approval_form.comment)
 
-    @report.approve!(approval_id, @approval_form.comment)
-
-    redirect_to controller: :reports, action: :index
+      redirect_to controller: :reports, action: :index
+    end
   end
 
 private

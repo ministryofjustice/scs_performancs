@@ -3,6 +3,9 @@
   = stylesheet_link_tag 'application'
   = csrf_meta_tag
 
+- content_for :log_in_out do
+  = render 'layouts/user_info'
+
 - content_for :content do
   #wrapper
     %main#content{role: 'main'}

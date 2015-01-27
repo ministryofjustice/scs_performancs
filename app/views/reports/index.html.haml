@@ -1,5 +1,6 @@
 %h1 Performance Management Reports
 
+%h2 Your performance reports
 - unless @reports.empty?
   %table.reports
     %thead
@@ -20,11 +21,30 @@
                   This report is closed
                 - else
                   = link_to('end year review', edit_report_review_path(report, :end_year))
-                  = link_to('end year approve', edit_report_approval_path(report, :end_year))
               - else
                 = link_to('mid year review', edit_report_review_path(report, :mid_year))
+
+= link_to('New', new_report_path)
+
+- unless @employees_reports.empty?
+  %h2 Your employees reports
+  %table.employees-reports
+    %thead
+      %tr
+        %th Number
+        %th Action
+    %tbody
+      - @employees_reports.each do |report|
+        %tr
+          %td= report.id
+          %td
+            - if report.approved?
+              - if report.mid_year_approved?
+                - if report.end_year_approved?
+                  This report is closed
+                - else
+                  = link_to('end year approve', edit_report_approval_path(report, :end_year))
+              - else
                 = link_to('mid year approve', edit_report_approval_path(report, :mid_year))
             - else
               = link_to('approve', edit_report_approval_path(report, :initial))
-
-= link_to('New', new_report_path)

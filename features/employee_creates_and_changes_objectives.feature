@@ -1,7 +1,11 @@
 Feature:
   As an employee
-  I want to be able to input up to 10 Development objectives
+  I want to be able to input my S.M.A.R.T and Development objectives
   So that I can be judged on my performance
+
+  Background:
+    Given I am an employee
+    And I log in
 
   Scenario: Employee creates new set of objectives when providing valid information
     Given I have no reports created

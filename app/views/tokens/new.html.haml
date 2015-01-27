@@ -1,0 +1,9 @@
+%h1 Please log in
+
+= form_for(@token_request_form, url: tokens_path, method: :post) do |f|
+  .form-group
+    = f.label :email, 'Email'
+    = f.text_field :email
+
+  .form-group
+    = f.submit 'Request token', class: 'button'

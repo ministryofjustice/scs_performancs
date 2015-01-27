@@ -35,3 +35,9 @@ form {
     padding: 8px;
   }
 }
+
+#log-in-out {
+  form, div {
+    display: inline-block;
+  }
+}
