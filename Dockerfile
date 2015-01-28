@@ -42,7 +42,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN useradd -m -d /srv/scs scs
 
-ADD ./docker.d/run.sh /run.sh
+ADD ./run.sh /run.sh
 RUN chmod 755 /run.sh
 
 ADD . /srv/scs
