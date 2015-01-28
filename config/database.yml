@@ -80,9 +80,7 @@ test: &test
 #
 production:
   <<: *default
-  database: scs_performance_production
-  username: scs_performance
-  password: <%= ENV['SCS_PERFORMANCE_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
 
 cucumber:
   <<: *test
