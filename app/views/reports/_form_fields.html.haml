@@ -32,16 +32,26 @@
 %h2.dev-needs Development needs
 %p Record any agreed development activity and timescales
 
-%table
+%table.development-needs
   %thead
     %tr
       %th Number
       %th Objective
+      %th
   %tbody
     - (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
       %tr{ :class => "development-row-#{n}" }
         %td.number= n
-        %td= f.text_area "development_#{n}"
+        %td.dev-need
+          = f.text_area "development_#{n}"
+        %td.hidden.control-column
+          %a{href: '#', :class => 'remove-development button'}
+            Remove need
+
+%div.smart-objectives-controls.hidden
+  %a{ href: '#', :class => "add-development button" }
+    Add another development need
+
 
 
 .form-group

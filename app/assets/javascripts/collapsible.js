@@ -4,22 +4,46 @@ jQuery(function ($){
   var addObjective = function ( event ){
     event ? event.preventDefault() : '';
 
-    if(!$('.smart-objectives tbody tr').last().hasClass('hidden'))
+    addRow('objective');
+  };
+
+  var addDevelopment = function ( event ){
+    event ? event.preventDefault() : '';
+
+    addRow('development');
+  };
+
+  var addRow = function ( type ){
+    var klass = type == 'objective' ? '.smart-objectives' : '.development-needs';
+
+    if(!$( klass + ' tbody tr' ).last().hasClass('hidden'))
       return false;
 
-    $('.smart-objectives tbody tr.hidden').first().removeClass('hidden');
+    $( klass + ' tbody tr.hidden' ).first().removeClass('hidden');
 
     // make sure only the last line has a remove objective link
-    $('.smart-objectives .control-column a').addClass('hidden');
-    $('.smart-objectives tbody tr').not('.hidden').last().find('.control-column a').removeClass('hidden');
+    $( klass + ' .control-column a' ).addClass('hidden');
+    $( klass + ' tbody tr' ).not('.hidden').last().find('.control-column a').removeClass('hidden');
 
     checkAddDisabledObjectives();
   };
 
-  var removeObjective = function (event){
+  var removeObjective = function ( event ){
     event.preventDefault();
 
-    var $row = $('.smart-objectives tbody tr').not('.hidden').last();
+    removeRow('objective');
+  };
+
+  var removeDevelopment = function ( event ){
+    event.preventDefault();
+
+    removeRow('development');
+  };
+
+  var removeRow = function ( type ){
+    var klass = type == 'objective' ? '.smart-objectives' : '.development-needs';
+
+    var $row = $( klass + ' tbody tr' ).not('.hidden').last();
     $row.find('.control-column a').addClass('hidden');
     $row.addClass('hidden');
     $row.prev().find('.control-column a').removeClass('hidden');
@@ -36,23 +60,22 @@ jQuery(function ($){
   };
 
   var revealFilledRows = function (event){
-    var $rows = $($('.smart-objectives tbody tr').toArray().reverse());
-    var $contentRows = $rows.filter(function (index, row){
-      var $row = $(row);
-      var hasContent = $row.find('textarea').map(function (x,y){ return $(y).val(); }).toArray().join('').length > 0;
-      if( hasContent ){
-        return row;
+    $(['.smart-objectives', '.development-needs']).each(function (x, klass){
+      var lastRow = $( klass + ' textarea').filter(function (i, obj){
+        return $(obj).val().length > 0;
+      }).last().closest('tr');
+
+      while( lastRow.hasClass('hidden') ){
+        klass == '.smart-objectives' ? addObjective() : addDevelopment();
       }
     });
 
-    while( $contentRows.filter(function (i,x){ return $(x).hasClass('hidden') }).length > 0 ){
-      addObjective();
-    }
   };
 
   if( $('.objective-row-1').length > 0 ){
     for( var i = 2; i <= 10; i++ ){
       $('.objective-row-' + i).addClass('hidden');
+      $('.development-row-' + i).addClass('hidden');
     }
 
     $('.control-column').removeClass('hidden');
@@ -60,6 +83,9 @@ jQuery(function ($){
 
     $('.add-objective').click(addObjective);
     $('.remove-objective').click(removeObjective);
+
+    $('.add-development').click(addDevelopment);
+    $('.remove-development').click(removeDevelopment);
 
     revealFilledRows();
   }

@@ -41,8 +41,10 @@ form {
     margin-top: 3em;
   }
 
-  .objective-row-1 .control-column a {
-    display: none;
+  .objective-row-1, .development-row-1 {
+    .control-column a {
+      display: none;
+    }
   }
 
   tbody tr {
@@ -56,6 +58,10 @@ form {
     &.even {
       background: $grey-3;
     }
+  }
+
+  td.dev-need {
+    width: 80%;
   }
 }
 
