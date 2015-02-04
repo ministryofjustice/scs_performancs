@@ -1,5 +1,7 @@
+/* global jQuery */
+
 jQuery(function ($){
-  "use strict";
+  'use strict';
 
   var addObjective = function ( event ){
     event ? event.preventDefault() : '';
@@ -14,16 +16,22 @@ jQuery(function ($){
   };
 
   var addRow = function ( type ){
-    var klass = type == 'objective' ? '.smart-objectives' : '.development-needs';
+    var klass = type === 'objective' ? '.smart-objectives'
+                                     : '.development-needs';
 
-    if(!$( klass + ' tbody tr' ).last().hasClass('hidden'))
+    if(!$( klass + ' tbody tr' ).last().hasClass('hidden')){
       return false;
+    }
 
     $( klass + ' tbody tr.hidden' ).first().removeClass('hidden');
 
     // make sure only the last line has a remove objective link
     $( klass + ' .control-column a' ).addClass('hidden');
-    $( klass + ' tbody tr' ).not('.hidden').last().find('.control-column a').removeClass('hidden');
+    $( klass + ' tbody tr' )
+      .not('.hidden')
+      .last()
+      .find('.control-column a')
+      .removeClass('hidden');
 
     checkAddDisabledObjectives();
   };
@@ -41,7 +49,8 @@ jQuery(function ($){
   };
 
   var removeRow = function ( type ){
-    var klass = type == 'objective' ? '.smart-objectives' : '.development-needs';
+    var klass = type === 'objective' ? '.smart-objectives'
+                                     : '.development-needs';
 
     var $row = $( klass + ' tbody tr' ).not('.hidden').last();
     $row.find('.control-column a').addClass('hidden');
@@ -59,14 +68,14 @@ jQuery(function ($){
     }
   };
 
-  var revealFilledRows = function (event){
+  var revealFilledRows = function (){
     $(['.smart-objectives', '.development-needs']).each(function (x, klass){
       var lastRow = $( klass + ' textarea').filter(function (i, obj){
         return $(obj).val().length > 0;
       }).last().closest('tr');
 
       while( lastRow.hasClass('hidden') ){
-        klass == '.smart-objectives' ? addObjective() : addDevelopment();
+        klass === '.smart-objectives' ? addObjective() : addDevelopment();
       }
     });
 
