@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ministryofjustice/scs_performance.svg?branch=master)](https://travis-ci.org/ministryofjustice/scs_performance)
 
-## Getting Started for local development
+## Getting started for local development
 
 1. Install dependencies
   ```
