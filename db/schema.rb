@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219143632) do
+ActiveRecord::Schema.define(version: 20150219153941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150219143632) do
     t.datetime "approved_at"
     t.datetime "mid_year_approved_at"
     t.datetime "end_year_approved_at"
+    t.json     "objective"
   end
 
   add_index "agreements", ["user_id"], name: "index_agreements_on_user_id", using: :btree
