@@ -6,7 +6,7 @@ class AgreementForm
   def self.allowed_params
     (1..OBJECTIVES_MAX).map do |n|
       %w[type what how deliverable measurement].map do |field|
-        "objective_#{field}_#{n}"
+        "#{field}_#{n}"
       end
     end.flatten
   end
@@ -20,7 +20,7 @@ class AgreementForm
   def objective_as_json
     AgreementForm.allowed_params.in_groups_of(5).map do |row|
       row.each_with_object({}) do |field, hash|
-        key = field[/objective_(.+)_\d+/, 1].to_sym
+        key = field[/(.+)_\d+/, 1].to_sym
         value = send(field)
         hash[key] = value
       end
