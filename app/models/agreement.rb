@@ -5,5 +5,6 @@ class Agreement < ActiveRecord::Base
   belongs_to :user
 
   include IdOrdered
+  include ApprovalStages
 
 end
