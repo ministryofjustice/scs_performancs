@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Report, type: :model do
   it { is_expected.to belong_to(:user) }
 
+  it_behaves_like 'id ordered'
+
   describe 'default scope' do
     before do
       FactoryGirl.create(:report, id: 5)

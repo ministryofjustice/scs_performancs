@@ -1,7 +1,10 @@
+# A Report represents the contents of the paper form titled
+# "SCS Performance Management Report".
 class Report < ActiveRecord::Base
+
   belongs_to :user
 
-  default_scope { order(:id) }
+  include IdOrdered
 
   def approved?
     !approved_at.nil?

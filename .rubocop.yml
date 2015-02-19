@@ -55,6 +55,16 @@ Style/DotPosition:
 Style/EachWithObject:
   Enabled: false
 
+# Prefer blank line after class/module start.
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
 # We have a mixture at the moment, so don't enforce anything.
 Style/FormatString:
   Enabled: false
