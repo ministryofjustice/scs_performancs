@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.1.5'
 
 gem 'rails', '4.2.0'
 gem 'pg'
@@ -20,14 +20,14 @@ group :test do
   gem 'rspec-mocks'
   gem 'shoulda-matchers'
   gem 'timecop'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
 end
 
 group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
-  gem 'jshint',
-    git: 'https://github.com/threedaymonk/jshint.git',
-    ref: 'b7fb727e07c76f6e388979169ea0c3b95e3075dd'
+  gem 'jshint'
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
@@ -35,4 +35,6 @@ group :development, :test do
   gem 'site_prism'
   gem 'spring'
   gem 'web-console', '~> 2.0'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
 end
