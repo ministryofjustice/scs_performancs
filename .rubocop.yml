@@ -28,6 +28,11 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*'
 
+# No need to check for describe class param in support files.
+RSpec/DescribeClass:
+  Exclude:
+    - spec/support/*
+
 # private/protected/public
 Style/AccessModifierIndentation:
   EnforcedStyle: outdent
