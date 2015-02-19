@@ -13,6 +13,7 @@ Feature:
     When I create new report with some objectives
     Then the report are saved
 
+  @javascript
   Scenario: Employee edits already created objectives
     Given I have an existing report
     When I change the objectives on the report

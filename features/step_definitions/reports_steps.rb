@@ -123,11 +123,20 @@ When(/^I change the objectives on the report$/) do
 
   @page.form.smart_objective_what_field_1.set 'Learn spanish'
   @page.form.smart_objective_how_field_1.set 'Read children books'
+
+  @page.form.add_objective.click
+  @page.form.add_objective.click
   @page.form.smart_objective_what_field_3.set 'Bake pies'
   @page.form.smart_objective_how_field_3.set 'Use the oven'
 
   @page.form.development_objective_field_1.set 'Changed Objective 1'
+
+  @page.form.add_development.click
   @page.form.development_objective_field_2.set 'New Objective'
+
+  @page.form.add_development.click
+  @page.form.add_development.click
+  @page.form.add_development.click
   @page.form.development_objective_field_5.set 'Changed Objective 5'
 
   @page.form.save_button.click
