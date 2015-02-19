@@ -119,6 +119,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    guard-rubocop (1.2.0)
+      guard (~> 2.0)
+      rubocop (~> 0.20)
     haml (4.1.0.beta.1)
       tilt
     haml-rails (0.7.0)
@@ -324,6 +327,7 @@ DEPENDENCIES
   faker
   guard-cucumber
   guard-rspec
+  guard-rubocop
   haml-rails
   jquery-rails
   jshint

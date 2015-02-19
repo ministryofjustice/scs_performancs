@@ -37,4 +37,5 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'guard-rspec'
   gem 'guard-cucumber'
+  gem 'guard-rubocop'
 end
