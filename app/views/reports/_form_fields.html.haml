@@ -2,7 +2,7 @@
 %p (Specific, Measurable, Achievable, Realistic and Timed)
 %p Refer to Civil Service Competency Framework and How To: Set SMART objectives.
 
-%table
+%table.smart-objectives
   %thead
     %tr
       %th Number
@@ -12,27 +12,47 @@
       %th
         'How'
         %span (to include steps to take to achieve the ‘what’, including the skills, knowledge, behaviours, values and competencies required)
+      %th
+
   %tbody
     - (1..ObjectivesForm::SMART_OBJECTIVES).each do |n|
-      %tr
+      %tr{ class: "objective-row-#{n} #{n%2 == 0 ? 'even' : 'odd'}" }
         %td.number= n
         %td.what= f.text_area "smart_what_#{n}"
         %td.how= f.text_area "smart_how_#{n}"
+        %td.hidden.control-column
+          %a{ href: '#', class: 'remove-objective button', id: "remove_objective_#{n}" }
+            Remove objective
 
-%h2 Development needs
+%div.smart-objectives-controls.hidden
+  %a{ href: '#', class: "add-objective button", id: "add_objective" }
+    Add another objective
+
+
+%h2.dev-needs Development needs
 %p Record any agreed development activity and timescales
 
-%table
+%table.development-needs
   %thead
     %tr
       %th Number
       %th Objective
+      %th
   %tbody
     - (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
-      %tr
+      %tr{ class: "development-row-#{n}" }
         %td.number= n
-        %td= f.text_area "development_#{n}"
+        %td.dev-need
+          = f.text_area "development_#{n}"
+        %td.hidden.control-column
+          %a{ href: '#', class: 'remove-development button', id: "remove_development_#{n}" }
+            Remove need
+
+%div.smart-objectives-controls.hidden
+  %a{ href: '#', class: "add-development button", id: "add_development" }
+    Add another development need
 
 
-.form-group
+
+.form-group.save-button-bar
   = f.submit 'Save', class: 'button'
