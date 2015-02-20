@@ -28,6 +28,11 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*'
 
+# No need to check for describe class param in support files.
+RSpec/DescribeClass:
+  Exclude:
+    - spec/support/*
+
 # private/protected/public
 Style/AccessModifierIndentation:
   EnforcedStyle: outdent
@@ -53,6 +58,16 @@ Style/DotPosition:
 
 # No, we don't prefer each_with_object
 Style/EachWithObject:
+  Enabled: false
+
+# Prefer blank line after class/module start.
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
   Enabled: false
 
 # We have a mixture at the moment, so don't enforce anything.

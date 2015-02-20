@@ -1,0 +1,4 @@
+%h1 New Performance Agreement
+
+= form_for @agreement_form, url: agreements_path, method: :post, html: {class: 'agreement-form'} do |form|
+  = render 'form_fields', f: form

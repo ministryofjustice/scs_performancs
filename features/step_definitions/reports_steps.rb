@@ -94,7 +94,7 @@ When(/^I create new report with some objectives$/) do
   @page.form.save_button.click
 end
 
-Then(/^the report are saved$/) do
+Then(/^the report is saved$/) do
   report = Report.first
 
   expected_development = [

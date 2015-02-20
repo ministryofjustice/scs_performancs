@@ -1,0 +1,40 @@
+%h2 Objectives
+%p (amend in-year as necessary; add more rows as necessary)
+
+%table.smart-objectives
+  %thead
+    %tr
+      %th Number
+      %th
+        Type
+        %span (Business delivery; Finance/Efficiency; People/Capability)
+      %th
+        Objective/What
+        %span you will be held account to deliver
+      %th
+        How
+        %span to include steps to take to achieve the ‘what’, including the skills, knowledge, behaviours, values and competencies required
+      %th
+        Deliverable
+        %span what is being produced (output) and/or what is being achieved (outcome)
+      %th
+        Measures/Target
+        %span how is achievement of the objective being measured
+
+  %tbody
+    - AgreementForm.allowed_params.in_groups_of(5).each_with_index do |row, index|
+      - n = index + 1
+      %tr{ class: "objective-row-#{n} #{(n)%2 == 0 ? 'even' : 'odd'}" }
+        %td.number= n
+        - row.each do |field|
+          %td= f.text_area field
+        %td.hidden.control-column
+          %a{ href: '#', class: 'remove-objective button', id: "remove_objective_#{n}" }
+            Remove objective
+
+%div.smart-objectives-controls.hidden
+  %a{ href: '#', class: "add-objective button", id: "add_objective" }
+    Add another objective
+
+.form-group.save-button-bar
+  = f.submit 'Save', class: 'button'

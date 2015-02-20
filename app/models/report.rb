@@ -1,19 +1,11 @@
+# A Report represents the contents of the paper form titled
+# "SCS Performance Management Report".
 class Report < ActiveRecord::Base
+
   belongs_to :user
 
-  default_scope { order(:id) }
-
-  def approved?
-    !approved_at.nil?
-  end
-
-  def mid_year_approved?
-    !mid_year_approved_at.nil?
-  end
-
-  def end_year_approved?
-    !end_year_approved_at.nil?
-  end
+  include IdOrdered
+  include ApprovalStages
 
   def approve!(stage, comment)
     stage_prefix = stage == :initial ? '' : "#{stage}_"
@@ -25,4 +17,5 @@ class Report < ActiveRecord::Base
       "#{stage_prefix}approved_snapshot_smart" => smart
     )
   end
+
 end
