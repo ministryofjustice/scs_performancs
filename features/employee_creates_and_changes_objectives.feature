@@ -11,7 +11,7 @@ Feature:
   Scenario: Employee creates new set of objectives when providing valid information
     Given I have no reports created
     When I create new report with some objectives
-    Then the report are saved
+    Then the report is saved
 
   @javascript
   Scenario: Employee edits already created objectives

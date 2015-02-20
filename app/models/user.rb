@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :tokens
   has_many :reports
+  has_many :agreements
   has_many :employees_reports, through: :employees, source: :reports
 
   validates :email, presence: true, format: /\A.+@.+\z/, uniqueness: true

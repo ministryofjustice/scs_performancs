@@ -41,6 +41,6 @@ module ScsPrototype
     config.active_record.raise_in_transactional_callbacks = true
 
     # moj_internal_template config
-    config.app_title = 'SCS PMR'
+    config.app_title = 'SCS Performance'
   end
 end

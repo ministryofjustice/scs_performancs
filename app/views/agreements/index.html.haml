@@ -1,0 +1,27 @@
+%h1 Performance Agreements
+
+%h2 Your performance agreements
+- unless @agreements.empty?
+  %table.reports
+    %thead
+      %tr
+        %th Number
+        %th Action
+    %tbody
+      - @agreements.each do |agreement|
+        %tr
+          %td= agreement.id
+          %td
+            - unless agreement.end_year_approved?
+              = #link_to('edit', edit_agreement_path(agreement))
+
+            - if agreement.approved?
+              - if agreement.mid_year_approved?
+                - if agreement.end_year_approved?
+                  This agreement is closed
+                - else
+                  = #link_to('end year review', edit_agreement_review_path(agreement, :end_year))
+              - else
+                = #link_to('mid year review', edit_agreement_review_path(agreement, :mid_year))
+
+= link_to('New', new_agreement_path)

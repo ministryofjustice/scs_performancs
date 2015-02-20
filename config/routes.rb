@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:edit, :update], constraints: { id: /mid_year|end_year/ }
   end
 
-  resources :agreements, only: [:new, :index] do
+  resources :agreements, only: [:new, :create, :index] do
   end
 
   resources :tokens, only: [:new, :create, :show]
