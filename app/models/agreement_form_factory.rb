@@ -13,7 +13,7 @@ class AgreementFormFactory
 private
 
   def process_objective(form)
-    form_rows = AgreementForm.allow_params_in_rows
+    form_rows = AgreementForm.allowed_params_in_rows
 
     @agreement.objective.each_with_index do |objective, index|
       row = form_rows[index]
