@@ -1,0 +1,4 @@
+%h1 Edit Performance Agreement
+
+= form_for @agreement_form, url: agreement_path(@agreement), method: :put, html: {class: 'agreement-form'} do |form|
+  = render 'form_fields', f: form

@@ -17,7 +17,24 @@ class AgreementsController < ApplicationController
 
   def index
     @agreements = current_user.agreements.all
-    # @employees_reports = current_user.employees_reports
+    # @employees_agreements = current_user.employees_agreements
+  end
+
+  def edit
+    @agreement = Agreement.find(params[:id])
+    employee_only(@agreement) do
+      @agreement_form = AgreementFormFactory.new(@agreement).objectives
+    end
+  end
+
+  def update
+    @agreement_form = AgreementForm.new(objectives_params)
+    agreement = Agreement.find(params[:id])
+    employee_only(agreement) do
+      update_agreement(agreement, @agreement_form)
+
+      redirect_to action: :index
+    end
   end
 
 private
@@ -26,4 +43,7 @@ private
     params.require(:agreement_form).permit(*AgreementForm.allowed_params)
   end
 
+  def update_agreement(agreement, agreement_form)
+    agreement.update objective: agreement_form.objective_as_json
+  end
 end
