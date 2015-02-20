@@ -24,7 +24,7 @@ Then(/^the agreement is saved$/) do
     { 'type' => '', 'what' => '', 'how' => '', 'deliverable' => '', 'measurement' => '' },
     { 'type' => '', 'what' => 'Bake pies', 'how' => '', 'deliverable' => '', 'measurement' => '' }
   ] + [{ 'type' => '', 'what' => '', 'how' => '', 'deliverable' => '', 'measurement' => '' }] * 7
-  expect(agreement.objective).to eql(expected)
+  expect(agreement.agreement).to eql(expected)
 end
 
 Given(/^I have an existing agreement$/) do
@@ -57,6 +57,6 @@ Then(/^the changes are saved on the agreement$/) do
       'deliverable' => '', 'measurement' => '' }
   ] + [{ 'type' => '', 'what' => '', 'how' => '', 'deliverable' => '', 'measurement' => '' }] * 7
 
-  expect(@agreement.objective).to eql(expected)
+  expect(@agreement.agreement).to eql(expected)
 
 end

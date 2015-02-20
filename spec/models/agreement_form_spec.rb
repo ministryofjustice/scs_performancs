@@ -4,8 +4,8 @@ RSpec.describe AgreementForm, type: :model do
   let(:attributes) { {} }
   subject(:agreement_form) { described_class.new(attributes) }
 
-  describe '#objective_as_json' do
-    subject { agreement_form.objective_as_json }
+  describe '#agreement_as_json' do
+    subject { agreement_form.agreement_as_json }
 
     context 'when some objective attributes are set' do
       let(:attributes) { { what_1: 'Objective what 1', how_1: 'Objective how 1', how_4: 'Objective how 4' } }

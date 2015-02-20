@@ -9,7 +9,7 @@ class AgreementsController < ApplicationController
   def create
     @agreement_form = AgreementForm.new(objectives_params)
     current_user.agreements.create(
-      objective: @agreement_form.objective_as_json
+      agreement: @agreement_form.agreement_as_json
     )
 
     redirect_to action: :index
@@ -23,7 +23,7 @@ class AgreementsController < ApplicationController
   def edit
     @agreement = Agreement.find(params[:id])
     employee_only(@agreement) do
-      @agreement_form = AgreementFormFactory.new(@agreement).objectives
+      @agreement_form = AgreementFormFactory.new(@agreement).agreement
     end
   end
 
@@ -44,6 +44,6 @@ private
   end
 
   def update_agreement(agreement, agreement_form)
-    agreement.update objective: agreement_form.objective_as_json
+    agreement.update agreement: agreement_form.agreement_as_json
   end
 end
