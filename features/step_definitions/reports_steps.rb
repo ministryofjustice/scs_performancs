@@ -1,6 +1,6 @@
 Given(/^There are some users and reports already in the system$/) do
   (1..4).each do |_|
-    FactoryGirl.create(:report)
+    FactoryGirl.create(:management_report)
   end
 end
 

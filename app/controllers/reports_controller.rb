@@ -22,7 +22,7 @@ class ReportsController < ApplicationController
   end
 
   def edit
-    @report = Report.find(params[:id])
+    @report = ManagementReport.find(params[:id])
     employee_only(@report) do
       @report_form = ReportFormFactory.new(@report).objectives
     end
@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
 
   def update
     @report_form = ObjectivesForm.new(objectives_params)
-    report = Report.find(params[:id])
+    report = ManagementReport.find(params[:id])
     employee_only(report) do
       update_report(report, @report_form)
 

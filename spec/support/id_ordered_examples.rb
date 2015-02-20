@@ -1,7 +1,7 @@
 shared_examples 'id ordered' do
   describe 'default scope' do
     before do
-      model = described_class.name.downcase.to_sym
+      model = described_class.name.tableize.singularize.to_sym
       FactoryGirl.create(model, id: 5)
       FactoryGirl.create(model, id: 2)
     end
