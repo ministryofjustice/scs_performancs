@@ -14,7 +14,7 @@ Feature:
     Then the agreement is saved
 
   @javascript
-  Scenario: Employee edits already created objectives
+  Scenario: Employee edits already created agreement objectives
     Given I have an existing agreement
     When I change the objectives on the agreement
     Then the changes are saved on the agreement
