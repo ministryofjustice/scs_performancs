@@ -11,14 +11,18 @@ class AgreementForm
     end.flatten
   end
 
-  AgreementForm.allowed_params.in_groups_of(5).each do |row|
+  def self.allowed_params_in_rows
+    allowed_params.in_groups_of(5)
+  end
+
+  AgreementForm.allowed_params_in_rows.each do |row|
     row.each do |field|
       attr_accessor field
     end
   end
 
   def objective_as_json
-    AgreementForm.allowed_params.in_groups_of(5).map do |row|
+    AgreementForm.allowed_params_in_rows.map do |row|
       row.each_with_object({}) do |field, hash|
         key = field[/(.+)_\d+/, 1].to_sym
         value = send(field)

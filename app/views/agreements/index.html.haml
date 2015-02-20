@@ -13,7 +13,7 @@
           %td= agreement.id
           %td
             - unless agreement.end_year_approved?
-              = #link_to('edit', edit_agreement_path(agreement))
+              = link_to('edit', edit_agreement_path(agreement))
 
             - if agreement.approved?
               - if agreement.mid_year_approved?

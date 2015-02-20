@@ -22,7 +22,7 @@
         %span how is achievement of the objective being measured
 
   %tbody
-    - AgreementForm.allowed_params.in_groups_of(5).each_with_index do |row, index|
+    - AgreementForm.allowed_params_in_rows.each_with_index do |row, index|
       - n = index + 1
       %tr{ class: "objective-row-#{n} #{(n)%2 == 0 ? 'even' : 'odd'}" }
         %td.number= n
