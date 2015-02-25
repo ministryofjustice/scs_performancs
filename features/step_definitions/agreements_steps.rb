@@ -69,6 +69,10 @@ Given(/^I have an agreement approved$/) do
   @report = FactoryGirl.create(:approved_agreement, user: @user)
 end
 
+Given(/^I have an agreement with mid\-year progress$/) do
+  @report = FactoryGirl.create(:agreement_with_mid_year_review, user: @user)
+end
+
 Given(/^I have an agreement and mid\-year review approved$/) do
   @report = FactoryGirl.create(:agreement_with_mid_year_approved, user: @user)
 end

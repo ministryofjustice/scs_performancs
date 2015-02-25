@@ -12,6 +12,11 @@ Feature:
     When I enter my mid-year progress against my objectives
     Then my mid-year progress should be saved
 
+  Scenario: Employee changes their mid-year comment on agreement
+    And I have an agreement with mid-year progress
+    When I change my mid-year progress against my objectives
+    Then the changes are saved on my mid-year progress
+
   Scenario: Employee fills in their end-year review on agreement
     And I have an agreement and mid-year review approved
     When I enter my end-year progress against my objectives

@@ -209,10 +209,12 @@ When(/^I change my (mid|end)\-year progress against my objectives$/) do |phase|
   @page = page_class.new
   @page.load(id: @report.id)
 
-  @page.form.smart_objective_what_field_1.set 'Changed'
-  @page.form.smart_objective_how_field_1.set 'Attended 3 times'
+  if @report.is_a?(ManagementReport)
+    @page.form.smart_objective_what_field_1.set 'Changed'
+    @page.form.smart_objective_how_field_1.set 'Attended 3 times'
 
-  @page.form.development_objective_field_1.set 'Did PRINCE2 course part 1'
+    @page.form.development_objective_field_1.set 'Did PRINCE2 course part 1'
+  end
 
   @page.form.comment.set 'Actually, it has not been so good'
 
@@ -222,16 +224,19 @@ end
 Then(/^the changes are saved on my (mid|end)\-year progress$/) do |phase|
   @report.reload
 
-  expected_smart_review = [
-    { 'what' => 'Changed', 'how' => 'Attended 3 times' }
-  ] + [{ 'what' => '', 'how' => '' }] * 9
-  expected_development_review = [
-    'Did PRINCE2 course part 1'
-  ] + ([''] * 9)
-  expected_comment = 'Actually, it has not been so good'
+  if @report.is_a?(ManagementReport)
+    expected_smart_review = [
+      { 'what' => 'Changed', 'how' => 'Attended 3 times' }
+    ] + [{ 'what' => '', 'how' => '' }] * 9
+    expected_development_review = [
+      'Did PRINCE2 course part 1'
+    ] + ([''] * 9)
 
-  expect(@report.send("#{phase}_year_review_smart")).to eql(expected_smart_review)
-  expect(@report.send("#{phase}_year_review_development")).to eql(expected_development_review)
+    expect(@report.send("#{phase}_year_review_smart")).to eql(expected_smart_review)
+    expect(@report.send("#{phase}_year_review_development")).to eql(expected_development_review)
+  end
+
+  expected_comment = 'Actually, it has not been so good'
   expect(@report.send("#{phase}_year_review_comment")).to eql(expected_comment)
 end
 
