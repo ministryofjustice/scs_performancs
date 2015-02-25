@@ -6,6 +6,7 @@ FactoryGirl.define do
       ] + [{ type: '', what: '', how: '', deliverable: '', measurement: '' }] * 9
 
       factory :approved_agreement do
+        approved_at { 5.days.ago }
 
         factory :agreement_with_mid_year_review do
 

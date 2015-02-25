@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :employees, class_name: :User, foreign_key: :manager_id
 
   has_many :tokens
-  has_many :reports
+  has_many :reports, class: ManagementReport
   has_many :agreements
   has_many :employees_reports, through: :employees, source: :reports
 

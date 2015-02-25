@@ -9,4 +9,12 @@ module ApplicationHelper
       "Approve #{@approval_id.to_s.titleize} Review"
     end
   end
+
+  def comment_heading
+    if @report.is_a?(Agreement)
+      'Please comment on your achievements to date'
+    else
+      'Additional comments'
+    end
+  end
 end

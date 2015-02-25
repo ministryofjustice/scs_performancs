@@ -64,3 +64,7 @@ end
 Given(/^one of my employees has their objectives agreement set$/) do
   @report = FactoryGirl.create(:filled_in_agreement, user: @employee)
 end
+
+Given(/^I have an agreement approved$/) do
+  @report = FactoryGirl.create(:approved_agreement, user: @user)
+end
