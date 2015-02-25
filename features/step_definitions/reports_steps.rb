@@ -36,7 +36,7 @@ Given(/^I have an existing report$/) do
 end
 
 Given(/^one of my employees has their objectives set$/) do
-  @employee_report = FactoryGirl.create(:filled_in_report, user: @employee)
+  @report = FactoryGirl.create(:filled_in_report, user: @employee)
 end
 
 Given(/^I have some objectives approved$/) do
@@ -44,7 +44,7 @@ Given(/^I have some objectives approved$/) do
 end
 
 Given(/^one of my employees has their objectives approved$/) do
-  @employee_report = FactoryGirl.create(:approved_report, user: @employee)
+  @report = FactoryGirl.create(:approved_report, user: @employee)
 end
 
 Given(/^I have some objectives with mid\-year progress$/) do
@@ -52,7 +52,7 @@ Given(/^I have some objectives with mid\-year progress$/) do
 end
 
 Given(/^one of my employees has their mid\-year review filled$/) do
-  @employee_report = FactoryGirl.create(:report_with_mid_year_review, user: @employee)
+  @report = FactoryGirl.create(:report_with_mid_year_review, user: @employee)
 end
 
 Given(/^I have some objectives and mid\-year review approved$/) do
@@ -60,7 +60,7 @@ Given(/^I have some objectives and mid\-year review approved$/) do
 end
 
 Given(/^one of my employees has their mid\-year review approved$/) do
-  @employee_report = FactoryGirl.create(:report_with_mid_year_approved, user: @employee)
+  @report = FactoryGirl.create(:report_with_mid_year_approved, user: @employee)
 end
 
 Given(/^I have some objectives, mid\-year review and end\-year review in progress$/) do
@@ -68,7 +68,7 @@ Given(/^I have some objectives, mid\-year review and end\-year review in progres
 end
 
 Given(/^one of my employees has their end\-year review filled$/) do
-  @employee_report = FactoryGirl.create(:report_with_end_year_review, user: @employee)
+  @report = FactoryGirl.create(:report_with_end_year_review, user: @employee)
 end
 
 When(/^I create new report with some objectives$/) do
@@ -182,7 +182,7 @@ end
 When(/^I try to enter my employee's (mid|end)-year review$/) do |phase|
   page_class = "UI::Pages::#{phase.camelize}YearReview".constantize
   @page = page_class.new
-  @page.load(id: @employee_report.id)
+  @page.load(id: @report.id)
 end
 
 Then(/^my (mid|end)\-year progress should be saved$/) do |phase|
@@ -235,7 +235,7 @@ When(/^I approve those objectives$/) do
   @current_time = Time.now
 
   @page = UI::Pages::ApproveObjectives.new
-  @page.load(id: @employee_report.id)
+  @page.load(id: @report.id)
 
   @page.form.comment.set 'These look good'
 
@@ -249,16 +249,20 @@ When(/^I try to approve my objectives$/) do
   @page.load(id: @report.id)
 end
 
-Then(/^The objectives are approved$/) do
-  @employee_report.reload
+Then(/^the objectives are approved$/) do
+  @report.reload
 
-  expect(@employee_report.approved_comment).to eql('These look good')
-  expect(@employee_report.approved_at.to_i).to eql(@current_time.to_i)
+  expect(@report.approved_comment).to eql('These look good')
+  expect(@report.approved_at.to_i).to eql(@current_time.to_i)
 end
 
-Then(/^The snapshot of those objectives is stored$/) do
-  expect(@employee_report.approved_snapshot_development).to eql(@employee_report.development)
-  expect(@employee_report.approved_snapshot_smart).to eql(@employee_report.smart)
+Then(/^the snapshot of those objectives is stored$/) do
+  if @report.is_a?(Agreement)
+    expect(@report.approved_snapshot_agreement).to eql(@report.agreement)
+  else
+    expect(@report.approved_snapshot_development).to eql(@report.development)
+    expect(@report.approved_snapshot_smart).to eql(@report.smart)
+  end
 end
 
 When(/^I approve this (mid|end)\-year review$/) do |phase|
@@ -267,7 +271,7 @@ When(/^I approve this (mid|end)\-year review$/) do |phase|
 
   page_class = "UI::Pages::Approve#{phase.camelize}YearReview".constantize
   @page = page_class.new
-  @page.load(id: @employee_report.id)
+  @page.load(id: @report.id)
 
   @page.form.comment.set 'You should speed up'
 
@@ -283,18 +287,18 @@ When(/^I try to approve my (mid|end)-year review$/) do |phase|
 end
 
 Then(/^The review is approved$/) do
-  @employee_report.reload
+  @report.reload
 
-  expect(@employee_report.send("#{@phase}_approved_comment")).to eql('You should speed up')
-  expect(@employee_report.send("#{@phase}_approved_at").to_i).to eql(@current_time.to_i)
+  expect(@report.send("#{@phase}_approved_comment")).to eql('You should speed up')
+  expect(@report.send("#{@phase}_approved_at").to_i).to eql(@current_time.to_i)
 end
 
 And(/^The snapshot of the objectives is stored$/) do
-  development_snapshot = @employee_report.send("#{@phase}_approved_snapshot_development")
-  smart_snapshot = @employee_report.send("#{@phase}_approved_snapshot_smart")
+  development_snapshot = @report.send("#{@phase}_approved_snapshot_development")
+  smart_snapshot = @report.send("#{@phase}_approved_snapshot_smart")
 
-  expect(development_snapshot).to eql(@employee_report.development)
-  expect(smart_snapshot).to eql(@employee_report.smart)
+  expect(development_snapshot).to eql(@report.development)
+  expect(smart_snapshot).to eql(@report.smart)
 end
 
 When(/^I request access using my e\-mail$/) do
