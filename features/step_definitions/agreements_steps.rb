@@ -62,18 +62,28 @@ Then(/^the changes are saved on the agreement$/) do
 end
 
 Given(/^one of my employees has their agreement set$/) do
-  @employee_report = FactoryGirl.create(:filled_in_agreement, user: @employee)
+  @agreement = FactoryGirl.create(:filled_in_agreement, user: @employee)
 end
 
 When(/^I approve that agreement$/) do
   @current_time = Time.now
 
   @page = UI::Pages::ApproveObjectives.new
-  @page.load(id: @employee_report.id)
+  @page.load(id: @agreement.id)
 
   @page.form.comment.set 'These look good'
 
   Timecop.freeze(@current_time) do
     @page.form.approve_button.click
   end
+end
+
+Then(/^the agreement is approved$/) do
+  @agreement.reload
+  expect(@agreement.approved_comment).to eql('These look good')
+  expect(@agreement.approved_at.to_i).to eql(@current_time.to_i)
+end
+
+Then(/^the snapshot of that agreement is stored$/) do
+  expect(@agreement.approved_snapshot_agreement).to eql(@agreement.agreement)
 end

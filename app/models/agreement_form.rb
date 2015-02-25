@@ -3,9 +3,13 @@ class AgreementForm
 
   include ActiveModel::Model
 
+  def self.objective_fields
+    %w[type what how deliverable measurement]
+  end
+
   def self.allowed_params
     (1..OBJECTIVES_MAX).map do |n|
-      %w[type what how deliverable measurement].map do |field|
+      objective_fields.map do |field|
         "#{field}_#{n}"
       end
     end.flatten

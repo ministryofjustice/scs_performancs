@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220155300) do
+ActiveRecord::Schema.define(version: 20150220162432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20150220155300) do
     t.integer  "user_id"
     t.string   "type"
     t.json     "agreement"
+    t.json     "approved_snapshot_agreement"
+    t.json     "mid_year_approved_snapshot_agreement"
+    t.json     "end_year_approved_snapshot_agreement"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
