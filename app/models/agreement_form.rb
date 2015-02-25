@@ -21,7 +21,7 @@ class AgreementForm
     end
   end
 
-  def objective_as_json
+  def agreement_as_json
     AgreementForm.allowed_params_in_rows.map do |row|
       row.each_with_object({}) do |field, hash|
         key = field[/(.+)_\d+/, 1].to_sym

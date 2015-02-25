@@ -3,14 +3,14 @@ class ReviewsController < ApplicationController
 
   def edit
     @review_id = params[:id].to_sym
-    @report = Report.find(params[:report_id])
+    @report = ManagementReport.find(params[:report_id])
     employee_only(@report) do
       @review_form = ReportFormFactory.new(@report).review(@review_id)
     end
   end
 
   def update
-    report = Report.find(params[:report_id])
+    report = ManagementReport.find(params[:report_id])
     employee_only(report) do
       review_form = ReviewForm.new(review_params)
       update_report(report, review_form)

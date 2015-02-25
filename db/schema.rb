@@ -11,22 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219153941) do
+ActiveRecord::Schema.define(version: 20150220155300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "agreements", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "user_id"
-    t.datetime "approved_at"
-    t.datetime "mid_year_approved_at"
-    t.datetime "end_year_approved_at"
-    t.json     "objective"
-  end
-
-  add_index "agreements", ["user_id"], name: "index_agreements_on_user_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.json     "development",                            default: []
@@ -52,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150219153941) do
     t.json     "end_year_approved_snapshot_development"
     t.json     "end_year_approved_snapshot_smart"
     t.integer  "user_id"
+    t.string   "type"
+    t.json     "agreement"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
@@ -75,6 +65,5 @@ ActiveRecord::Schema.define(version: 20150219153941) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["manager_id"], name: "index_users_on_manager_id", using: :btree
 
-  add_foreign_key "agreements", "users"
   add_foreign_key "reports", "users"
 end
