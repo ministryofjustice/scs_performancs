@@ -60,3 +60,7 @@ Then(/^the changes are saved on the agreement$/) do
   expect(@agreement.agreement).to eql(expected)
 
 end
+
+Given(/^one of my employees has their objectives agreement set$/) do
+  @report = FactoryGirl.create(:filled_in_agreement, user: @employee)
+end

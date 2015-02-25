@@ -1,0 +1,10 @@
+%h2 Objectives
+%table.smart-objectives
+  %thead
+    = render 'agreements/agreement_field_names'
+  %tbody
+    - @report.agreement.each_with_index do |objective, n|
+      %tr{ class: "objective-row-#{n} #{(n)%2 == 0 ? 'even' : 'odd'}" }
+        %td.number= n + 1
+        - AgreementForm.objective_fields.each do |field|
+          %td= objective[field]

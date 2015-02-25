@@ -10,8 +10,8 @@ Feature:
   Scenario: Manager approves a report
     And one of my employees has their objectives set
     When I approve those objectives
-    Then The objectives are approved
-    And The snapshot of those objectives is stored
+    Then the objectives are approved
+    And the snapshot of those objectives is stored
 
   Scenario: Manager approves mid-year progress
     And one of my employees has their mid-year review filled

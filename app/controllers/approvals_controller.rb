@@ -3,14 +3,14 @@ class ApprovalsController < ApplicationController
 
   def edit
     @approval_id = params[:id].to_sym
-    @report = ManagementReport.find(params[:report_id])
+    @report = Report.find(params[:report_id])
     manager_only(@report) do
       @approval_form = ApprovalForm.new
     end
   end
 
   def update
-    report = ManagementReport.find(params[:report_id])
+    report = Report.find(params[:report_id])
     manager_only(report) do
       approval_form = ApprovalForm.new(approval_params)
       report.approve!(params[:id].to_sym, approval_form.comment)
