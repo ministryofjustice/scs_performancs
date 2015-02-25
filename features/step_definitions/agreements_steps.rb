@@ -60,3 +60,20 @@ Then(/^the changes are saved on the agreement$/) do
   expect(@agreement.agreement).to eql(expected)
 
 end
+
+Given(/^one of my employees has their agreement set$/) do
+  @employee_report = FactoryGirl.create(:filled_in_agreement, user: @employee)
+end
+
+When(/^I approve that agreement$/) do
+  @current_time = Time.now
+
+  @page = UI::Pages::ApproveObjectives.new
+  @page.load(id: @employee_report.id)
+
+  @page.form.comment.set 'These look good'
+
+  Timecop.freeze(@current_time) do
+    @page.form.approve_button.click
+  end
+end
