@@ -11,3 +11,8 @@ Feature:
     And I have an agreement approved
     When I enter my mid-year progress against my objectives
     Then my mid-year progress should be saved
+
+  Scenario: Employee fills in their end-year review on agreement
+    And I have an agreement and mid-year review approved
+    When I enter my end-year progress against my objectives
+    Then my end-year progress should be saved
