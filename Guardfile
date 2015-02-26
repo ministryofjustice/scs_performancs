@@ -33,6 +33,8 @@ group :red_green_refactor, halt_on_fail: true do
     watch(%r{^features/step_definitions/(.+)_steps\.rb$}) do |m|
       Dir[File.join("**/#{m[1]}.feature")][0] || "features"
     end
+
+    watch(%r{controllers/profiles_controller}) { 'features/employee_enters_personal_details_and_responsibilities.feature' }
   end
 
   guard :rspec, cmd: "bundle exec rspec", all_on_start: true do
