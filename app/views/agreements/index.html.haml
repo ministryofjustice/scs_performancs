@@ -1,6 +1,27 @@
 %h1 Performance Agreements
 
 %h2 Your profile
+%table.plain
+  %tr
+    %td
+      %p
+        Name:
+        = current_user.name
+      %p
+        Staff number:
+        = current_user.staff_number
+      - if current_user.manager
+        %p
+          Line manager:
+          = current_user.manager.to_s
+    %td
+      %p
+        Grade:
+        = current_user.grade
+      %p
+        Organisation:
+        = current_user.organisation
+
 %p= link_to('Edit your profile', edit_profile_path)
 
 %h2 Your performance agreements
