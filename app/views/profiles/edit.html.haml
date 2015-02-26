@@ -1,0 +1,24 @@
+%h1 Your profile
+
+%h2 Personal details
+
+= form_for @user, url: profile_path(@user), method: :put do |f|
+
+  .form-group
+    = f.label :name, class: 'form-label'
+    = f.text_field :name, class: 'form-control'
+
+  .form-group
+    = f.label :staff_number, class: 'form-label'
+    = f.text_field :staff_number, class: 'form-control'
+
+  .form-group
+    = f.label :grade, class: 'form-label'
+    = f.text_field :grade, class: 'form-control'
+
+  .form-group
+    = f.label :organisation, class: 'form-label'
+    = f.text_field :organisation, class: 'form-control'
+
+  .form-group
+    = f.submit 'Save', class: 'button'

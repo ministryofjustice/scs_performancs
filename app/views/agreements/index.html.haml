@@ -1,5 +1,8 @@
 %h1 Performance Agreements
 
+%h2 Your profile
+%p= link_to('Edit your profile', edit_profile_path)
+
 %h2 Your performance agreements
 - unless @agreements.empty?
   %table.reports
