@@ -9,10 +9,11 @@
         'How'
   %tbody
     - @report.smart.each_with_index do |smart, n|
-      %tr
-        %td.number= n + 1
-        %td= smart['what']
-        %td= smart['how']
+      - unless smart['what'].blank? && smart['how'].blank?
+        %tr
+          %td.number= n + 1
+          %td= smart['what']
+          %td= smart['how']
       - if [:mid_year, :end_year].include?(@approval_id)
         %tr
           %td Mid Year Review
@@ -33,9 +34,10 @@
       %th Objective
   %tbody
     - @report.development.each_with_index do |development, n|
-      %tr
-        %td.number= n +1
-        %td= development
+      - unless development.blank?
+        %tr
+          %td.number= n +1
+          %td= development
       - if [:mid_year, :end_year].include?(@approval_id)
         %tr
           %td Mid Year Review

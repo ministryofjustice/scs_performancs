@@ -20,8 +20,8 @@
                 - if agreement.end_year_approved?
                   This agreement is closed
                 - else
-                  = #link_to('end year review', edit_agreement_review_path(agreement, :end_year))
+                  = link_to('end year review', edit_report_review_path(agreement, :end_year))
               - else
-                = #link_to('mid year review', edit_agreement_review_path(agreement, :mid_year))
+                = link_to('mid year review', edit_report_review_path(agreement, :mid_year))
 
 = link_to('New', new_agreement_path)

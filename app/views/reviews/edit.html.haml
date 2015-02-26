@@ -1,54 +1,14 @@
-- title = "#{@review_id.to_s.titleize} Review"
-%h1= title
+- @title = "#{@review_id.to_s.titleize} Review"
+%h1= @title
 
 = form_for @review_form, url: report_review_path(@report, @review_id), method: :put, html: {class: 'report-form'} do |f|
-  %h2 SMART objectives
-  %table
-    %thead
-      %tr
-        %th Number
-        %th
-          'What'
-        %th
-          'How'
-    %tbody
-      - (1..ObjectivesForm::SMART_OBJECTIVES).each do |n|
-        %tr
-          %td.number= n
-          %td= @report.smart[n - 1]['what']
-          %td= @report.smart[n - 1]['how']
-        - if @review_id == :end_year
-          %tr
-            %td Mid Year Review
-            %td= @report.mid_year_review_smart[n - 1]['what']
-            %td= @report.mid_year_review_smart[n - 1]['how']
-        %tr
-          %td= title
-          %td.what= f.text_area "smart_what_#{n}"
-          %td.how= f.text_area "smart_how_#{n}"
+  - if @report.is_a?(Agreement)
+    = render 'approvals/agreement'
+  - else
+    = render partial: 'management_report', locals: { f: f }
 
-  %h2 Development needs
-  %table
-    %thead
-      %tr
-        %th Number
-        %th Objective
-    %tbody
-      - (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
-        %tr
-          %td.number= n
-          %td= @report.development[n - 1]
-        - if @review_id == :end_year
-          %tr
-            %td Mid Year Review
-            %td= @report.mid_year_review_development[n - 1]
-        %tr
-          %td= title
-          %td= f.text_area "development_#{n}"
-
-  %h2 Additional comments
+  %h2= comment_heading
   = f.text_area :comment
-
 
   .form-group
     = f.submit 'Save', class: 'button'
