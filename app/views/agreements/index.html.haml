@@ -5,21 +5,21 @@
   %tr
     %td
       %p
-        Name:
+        %span.label Name
         = current_user.name
       %p
-        Staff number:
+        %span.label Staff number
         = current_user.staff_number
       - if current_user.manager
         %p
-          Line manager:
+          %span.label Line manager
           = current_user.manager.to_s
     %td
       %p
-        Grade:
+        %span.label Grade
         = current_user.grade
       %p
-        Organisation:
+        %span.label Organisation
         = current_user.organisation
 
 %p= link_to('Edit your profile', edit_profile_path)
@@ -29,23 +29,27 @@
   %table.reports
     %thead
       %tr
-        %th Number
+        %th Last saved on
+        %th Manager approved on
         %th Action
     %tbody
       - @agreements.each do |agreement|
         %tr
-          %td= agreement.id
+          %td= agreement.updated_at.to_s(:long)
+          %td= agreement.approved_at.to_s(:long)
           %td
             - unless agreement.end_year_approved?
-              = link_to('edit', edit_agreement_path(agreement))
+              = link_to('Edit objectives', edit_agreement_path(agreement))
 
             - if agreement.approved?
               - if agreement.mid_year_approved?
                 - if agreement.end_year_approved?
                   This agreement is closed
                 - else
-                  = link_to('end year review', edit_report_review_path(agreement, :end_year))
+                  = link_to('Add end year review comments', edit_report_review_path(agreement, :end_year))
               - else
-                = link_to('mid year review', edit_report_review_path(agreement, :mid_year))
+                = link_to('Add mid year review comments', edit_report_review_path(agreement, :mid_year))
 
-= link_to('New', new_agreement_path)
+%p
+%p
+  = link_to('Create new performance agreement', new_agreement_path)
