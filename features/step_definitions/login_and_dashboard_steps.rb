@@ -10,6 +10,14 @@ Then(/^I should see a dashboard page with my performance reports$/) do
   end
 end
 
+Then(/^I should see performance report approval dates$/) do
+  page = UI::Pages::Dashboard.new
+  page.displayed?
+  expect(page.initial_approval.first.text).to eql(5.days.ago.to_date.to_s(:short))
+  expect(page.mid_year_approval.first.text).to eql(3.days.ago.to_date.to_s(:short))
+  expect(page.end_year_approval.first.text).to eql('awaiting approval')
+end
+
 And(/^I should see performance reports of my employees$/) do
   page = UI::Pages::Dashboard.new
   page.displayed?
