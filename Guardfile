@@ -26,6 +26,7 @@
 # This group allows to skip running all groups when a previous group has failed.
 group :red_green_refactor, halt_on_fail: true do
 
+  #guard "cucumber", cli: '--format pretty' do
   guard "cucumber" do
     watch(%r{^features/.+\.feature$})
     watch(%r{^features/support/.+$})          { "features" }
