@@ -4,7 +4,7 @@
 
 - if @report.mid_year_review_comment
   %br
-  %h3= review_comment_label(:mid_year)
+  %h3= review_comment_label('mid year')
   %p= @report.mid_year_review_comment
 
 - if @report.mid_year_approved_comment
@@ -13,7 +13,7 @@
 
 - if @report.end_year_review_comment
   %br
-  %h3= review_comment_label(:end_year)
+  %h3= review_comment_label('end year')
   %p= @report.end_year_review_comment
 
 - if @report.end_year_approved_comment
