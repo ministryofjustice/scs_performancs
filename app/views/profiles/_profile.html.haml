@@ -1,0 +1,20 @@
+%table.plain
+  %tr
+    %td
+      %p
+        %span.label Name
+        = current_user.name
+      %p
+        %span.label Staff number
+        = current_user.staff_number
+      - if current_user.manager
+        %p
+          %span.label Line manager
+          = current_user.manager.to_s
+    %td
+      %p
+        %span.label Grade
+        = current_user.grade
+      %p
+        %span.label Organisation
+        = current_user.organisation

@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :agreements, only: [:new, :create, :index, :edit, :update] do
   end
 
+  get '/profile/edit', to: 'profiles#edit', as: :edit_profile
+  put '/profile', to: 'profiles#update', as: :profile
+
   resources :tokens, only: [:new, :create, :show]
   resource :session, only: [:destroy]
 end
