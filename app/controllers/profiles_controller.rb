@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
 
   def update
     current_user.update! profile_params
-    redirect_to controller: :agreements, action: :index
+    redirect_to controller: :reports, action: :index
   end
 
 private

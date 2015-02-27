@@ -9,21 +9,35 @@
         'How'
   %tbody
     - @report.smart.each_with_index do |smart, n|
-      - unless smart['what'].blank? && smart['how'].blank?
+      - unless objective_blank? smart
         %tr
-          %td.number= n + 1
-          %td= smart['what']
-          %td= smart['how']
+          %td.number
+            %p
+              %span.label= n +1
+          %td
+            %p= smart['what']
+          %td
+            %p= smart['how']
       - if [:mid_year, :end_year].include?(@approval_id)
-        %tr
-          %td Mid Year Review
-          %td= @report.mid_year_review_smart[n]['what']
-          %td= @report.mid_year_review_smart[n]['how']
+        - mid_year = @report.mid_year_review_smart[n]
+        - unless objective_blank? mid_year
+          %tr
+            %td
+              %p Mid Year Review
+            %td
+              %p= mid_year['what']
+            %td
+              %p= mid_year['how']
       - if @approval_id == :end_year
-        %tr
-          %td End Year Review
-          %td= @report.end_year_review_smart[n]['what']
-          %td= @report.end_year_review_smart[n]['how']
+        - end_year = @report.end_year_review_smart[n]
+        - unless objective_blank? end_year
+          %tr
+            %td
+              %pEnd Year Review
+            %td
+              %p= end_year['what']
+            %td
+              %p= end_year['how']
 
 
 %h2 Development needs
@@ -36,13 +50,24 @@
     - @report.development.each_with_index do |development, n|
       - unless development.blank?
         %tr
-          %td.number= n +1
-          %td= development
+          %td.number
+            %p
+              %span.label= n +1
+          %td
+            %p= development
       - if [:mid_year, :end_year].include?(@approval_id)
-        %tr
-          %td Mid Year Review
-          %td= @report.mid_year_review_development[n]
+        - mid_year = @report.mid_year_review_development[n]
+        - unless mid_year.blank?
+          %tr
+            %td
+              %p Mid Year Review
+            %td
+              %p= mid_year
       - if @approval_id == :end_year
-        %tr
-          %td End Year Review
-          %td= @report.end_year_review_development[n]
+        - end_year = @report.end_year_review_development[n]
+        - unless end_year.blank?
+          %tr
+            %td
+              %p End Year Review
+            %td
+              %p= end_year

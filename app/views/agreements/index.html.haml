@@ -3,50 +3,11 @@
 %h2 Your profile
 = render 'profiles/profile'
 
-%p= link_to('Edit your profile', edit_profile_path)
-
 %h2 Your performance agreements
-- unless @agreements.empty?
-  %table.reports
-    %thead
-      %tr
-        %th Last saved on
-        %th Initial approval
-        %th Mid year approval
-        %th End year approval
-        %th Action
-    %tbody
-      - @agreements.each do |agreement|
-        %tr
-          %td= agreement.updated_at.to_s(:long)
-          %td
-            - if agreement.approved_at
-              = agreement.approved_at.to_date.to_s(:short)
-            - else
-              not yet approved
-          %td
-            - if agreement.mid_year_approved_at
-              = agreement.mid_year_approved_at.to_date.to_s(:short)
-            - else
-              not yet approved
-          %td
-            - if agreement.end_year_approved_at
-              = agreement.end_year_approved_at.to_date.to_s(:short)
-            - else
-              not yet approved
-          %td
-            - unless agreement.end_year_approved?
-              %p= link_to('Edit your objectives', edit_agreement_path(agreement))
-            - if agreement.approved?
-              - if agreement.mid_year_approved?
-                - if agreement.end_year_approved?
-                  This agreement is closed
-                - else
-                  %p= link_to('Add end year review comments', edit_report_review_path(agreement, :end_year))
-              - else
-                %p= link_to('Add mid year review comments', edit_report_review_path(agreement, :mid_year))
+= render 'reports/your_reports'
 
 %p
 %p
   = link_to('Create new performance agreement', new_agreement_path)
 
+= render 'reports/employee_reports'

@@ -1,10 +1,15 @@
 %h1= approval_heading
 
+%h2 Personal details
+= render 'profiles/profile'
+
 = form_for @approval_form, url: report_approval_path(@report, @approval_id), method: :put, html: {class: 'report-form'} do |f|
   - if @report.is_a?(Agreement)
     = render 'agreement'
   - else
     = render 'management_report'
+
+  = render 'reviews/report_comments'
 
   %h2 Comments
   = f.text_area :comment

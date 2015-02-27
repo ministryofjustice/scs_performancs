@@ -326,26 +326,6 @@ When(/^I click on the link in the e\-mail$/) do
   visit(link)
 end
 
-Then(/^I should see a dashboard page with my performance reports$/) do
-  page = UI::Pages::Dashboard.new
-  page.displayed?
-
-  expect(page.reports.size).to eql(1)
-  expect(page.reports.first.text).to eql(@report.id.to_s)
-end
-
-And(/^I should see performance reports of my employees$/) do
-  page = UI::Pages::Dashboard.new
-  page.displayed?
-
-  expect(page.employees_reports.size).to eql(@employees_reports.size)
-
-  ids_on_page = page.employees_reports.map(&:text)
-  ids_in_db = @employees_reports.map { |r| r.id.to_s }
-
-  expect(ids_on_page).to eql(ids_in_db)
-end
-
 When(/^I try to change my employee's objectives$/) do
   @page = UI::Pages::EditReport.new
   @page.load(id: @employees_reports.first.id)

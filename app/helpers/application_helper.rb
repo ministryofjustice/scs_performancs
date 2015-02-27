@@ -17,4 +17,13 @@ module ApplicationHelper
       'Additional comments'
     end
   end
+
+  def objective_blank?(objective)
+    objective['what'].blank? && objective['how'].blank?
+  end
+
+  def review_comment_label stage
+    whose = (@report.user == current_user) ? 'Your' : 'Employee'
+    "#{whose} #{stage.humanize} review comments"
+  end
 end
