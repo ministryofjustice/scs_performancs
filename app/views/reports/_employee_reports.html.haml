@@ -26,7 +26,10 @@
           %td
             - if report.approved?
               - if report.mid_year_approved?
-                awaiting submission
+                - if report.end_year_approved?
+                  = display_date report.end_year_approved_at
+                - else
+                  awaiting submission
           %td
             - if report.approved?
               - if report.mid_year_approved?

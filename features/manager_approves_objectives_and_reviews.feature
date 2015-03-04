@@ -26,3 +26,4 @@ Feature:
     When I approve this end-year review
     Then The review is approved
     And The snapshot of the objectives is stored
+    And the employee reports dashboard shows end-year approval date
