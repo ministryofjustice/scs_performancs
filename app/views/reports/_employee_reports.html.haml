@@ -1,0 +1,30 @@
+- if @employees_reports && !@employees_reports.empty?
+  %h2 Your employees reports
+  %table.employees-reports
+    %thead
+      %tr
+        %th Name
+        %th Last changed on
+        %th Action
+    %tbody
+      - @employees_reports.each do |report|
+        %tr
+          %td= report.user.to_s
+          %td= report.updated_at.to_date.to_s(:short)
+          %td
+            - if report.approved?
+              - if report.mid_year_approved?
+                - if report.end_year_approved?
+                  This report is closed
+                - else
+                  - if report.end_year_review_comment.present?
+                    = link_to('End-year approve', edit_report_approval_path(report, :end_year))
+                  - else
+                    Awaiting employee end-year review
+              - else
+                - if report.mid_year_review_comment.present?
+                  = link_to('Mid-year approve', edit_report_approval_path(report, :mid_year))
+                - else
+                  Awaiting employee mid-year review
+            - else
+              = link_to('Approve', edit_report_approval_path(report, :initial))

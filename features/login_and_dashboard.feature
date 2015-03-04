@@ -8,10 +8,11 @@ Feature:
 
   Scenario: logging in and seeing my dashboard
     Given I am an employee
-    And I have an existing report
+    And I have some objectives and mid-year review approved
     When I request access using my e-mail
     And I click on the link in the e-mail
     Then I should see a dashboard page with my performance reports
+    And I should see performance report approval dates
 
   Scenario: viewing my dashboard when I have employees
     Given I am a manager
