@@ -14,9 +14,9 @@
           %td= report.user.to_s
           %td
             - if report.approved?
-              = report.updated_at.to_date.to_s(:short)
+              = display_date report.approved_at
             - else
-              = "submitted on: #{report.updated_at.to_date.to_s(:short)}"
+              = "submitted on: #{display_date(report.updated_at)}"
           %td
           %td
           %td

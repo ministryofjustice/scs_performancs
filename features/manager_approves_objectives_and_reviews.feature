@@ -12,6 +12,7 @@ Feature:
     When I approve those objectives
     Then the objectives are approved
     And the snapshot of those objectives is stored
+    And the employee reports dashboard shows approval date
 
   Scenario: Manager approves mid-year progress
     And one of my employees has their mid-year review filled

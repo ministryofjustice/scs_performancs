@@ -26,4 +26,8 @@ module ApplicationHelper
     whose = (@report.user == current_user) ? 'Your' : 'Employee'
     "#{whose} #{stage} review comments"
   end
+
+  def display_date(datetime)
+    datetime.to_date.to_s(:short)
+  end
 end
