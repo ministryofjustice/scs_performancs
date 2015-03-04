@@ -1,4 +1,4 @@
-Then(/^the employee reports dashboard shows approval date$/) do
+Then(/^I see approval date on the employee reports dashboard$/) do
   page = UI::Pages::Dashboard.new
   page.displayed?
 
@@ -9,7 +9,7 @@ Then(/^the employee reports dashboard shows approval date$/) do
   expect(page.employees_end_year_approval.first.text).to eql('')
 end
 
-Then(/^the employee reports dashboard shows mid-year approval date$/) do
+Then(/^I see mid-year approval date on the employee reports dashboard$/) do
   page = UI::Pages::Dashboard.new
   page.displayed?
 
@@ -21,7 +21,7 @@ Then(/^the employee reports dashboard shows mid-year approval date$/) do
   expect(page.employees_end_year_approval.first.text).to eql('awaiting submission')
 end
 
-Then(/^the employee reports dashboard shows end-year approval date$/) do
+Then(/^I see end-year approval date on the employee reports dashboard$/) do
   page = UI::Pages::Dashboard.new
   page.displayed?
 
