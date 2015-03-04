@@ -18,7 +18,15 @@
             - else
               = "submitted on: #{display_date(report.updated_at)}"
           %td
+            - if report.approved?
+              - if report.mid_year_approved?
+                = display_date report.mid_year_approved_at
+              - else
+                awaiting submission
           %td
+            - if report.approved?
+              - if report.mid_year_approved?
+                awaiting submission
           %td
             - if report.approved?
               - if report.mid_year_approved?
