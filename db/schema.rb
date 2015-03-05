@@ -67,14 +67,6 @@ ActiveRecord::Schema.define(version: 20150305113523) do
     t.string   "staff_number"
     t.string   "grade"
     t.string   "organisation"
-    t.string   "budget_type_1"
-    t.string   "budget_type_2"
-    t.string   "budget_value_1"
-    t.string   "budget_value_2"
-    t.string   "budget_description_1"
-    t.string   "budget_description_2"
-    t.string   "staff_count_grade"
-    t.string   "staff_engagement_score"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
