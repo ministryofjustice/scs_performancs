@@ -2,6 +2,8 @@ When(/^I create new report with some objectives$/) do
   @page = UI::Pages::NewReport.new
   @page.load
 
+  @page.form.review_period.set '2015/16'
+
   @page.form.smart_objective_what_field_1.set 'Learn english'
   @page.form.smart_objective_how_field_1.set 'Read children books'
 
@@ -23,6 +25,8 @@ end
 
 Then(/^the report is saved$/) do
   report = Report.first
+
+  expect(report.review_period).to eql('2015/16')
 
   expected_development = [
     'Objective 1', '', '', '', 'Objective 5', '', '', '', '', ''

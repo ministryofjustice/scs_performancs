@@ -7,10 +7,11 @@ class ReportsController < ApplicationController
   end
 
   def create
-    @report_form = ObjectivesForm.new(objectives_params)
+    report_form = ObjectivesForm.new(objectives_params)
     current_user.reports.create(
-        development: @report_form.development_as_json,
-        smart: @report_form.smart_as_json
+        review_period: report_form.review_period,
+        development: report_form.development_as_json,
+        smart: report_form.smart_as_json
     )
 
     redirect_to action: :index
@@ -46,6 +47,7 @@ private
 
   def update_report(report, report_form)
     report.update(
+        review_period: report_form.review_period,
         development: report_form.development_as_json,
         smart: report_form.smart_as_json
     )
