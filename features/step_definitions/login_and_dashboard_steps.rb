@@ -1,40 +1,32 @@
-Then(/^I should see a dashboard page with my performance reports$/) do
+Then(/^I see a dashboard page with my performance reports$/) do
   current_time = Time.now
 
   Timecop.freeze(current_time) do
-    page = UI::Pages::Dashboard.new
-    page.displayed?
+    expect(dashboard).to be_displayed
 
-    expect(page.reports.size).to eql(1)
-    expect(page.reports.first.text).to eql(current_time.to_s(:long))
+    expect(dashboard.reports.size).to eql(1)
+    expect(dashboard.reports.first.text).to eql(current_time.to_s(:long))
   end
 end
 
-Then(/^I should see performance report approval dates$/) do
-  page = UI::Pages::Dashboard.new
-  page.displayed?
+Then(/^I see performance report approval dates$/) do
+  initial_date = date_format 5.days.ago
+  mid_year_date = date_format 3.days.ago
 
-  initial_date = 5.days.ago.to_date.to_s(:short).strip
-  mid_year_date = 3.days.ago.to_date.to_s(:short).strip
-
-  expect(page.initial_approval.first.text).to eql(initial_date)
-  expect(page.mid_year_approval.first.text).to eql(mid_year_date)
-  expect(page.end_year_approval.first.text).to eql('awaiting approval')
+  check_my_approval_status initial_date, mid_year_date, 'awaiting approval'
 end
 
-And(/^I should see performance reports of my employees$/) do
-  page = UI::Pages::Dashboard.new
-  page.displayed?
+And(/^I see performance reports of my employees$/) do
+  expect(dashboard.employees_reports.size).to eql(@employees_reports.size)
 
-  expect(page.employees_reports.size).to eql(@employees_reports.size)
-
-  names_on_page = page.employees_reports.map(&:text)
+  names_on_page = dashboard.employees_reports.map(&:text)
   employee_names = @employees_reports.map { |r| r.user.name }
 
   expect(names_on_page).to eql(employee_names)
+end
 
-  submitted_date = @employees_reports.first.updated_at.to_date.to_s(:short).strip
-  expect(page.employees_initial_approval.first.text).to eql("submitted on: #{submitted_date}")
-  expect(page.employees_mid_year_approval.first.text).to eql('')
-  expect(page.employees_end_year_approval.first.text).to eql('')
+And(/^I see employee reports approval status$/) do
+  submitted_date = date_format @employees_reports.first.updated_at
+
+  check_employee_approval_status "submitted on: #{submitted_date}", '', ''
 end
