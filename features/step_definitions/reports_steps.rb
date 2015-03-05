@@ -221,22 +221,6 @@ And(/^The snapshot of the objectives is stored$/) do
   expect(smart_snapshot).to eql(@report.smart)
 end
 
-When(/^I request access using my e\-mail$/) do
-  page = UI::Pages::Login.new
-  page.load
-
-  page.email_field.set @user.email
-  page.request_button.click
-end
-
-When(/^I click on the link in the e\-mail$/) do
-  open_email(@user.email)
-
-  # host = Rails.configuration.action_mailer[:default_url_options][:host]
-  link = current_email.body.match(%r{^https?://.*$})[0]
-  visit(link)
-end
-
 When(/^I try to change my employee's objectives$/) do
   @page = UI::Pages::EditReport.new
   @page.load(id: @employees_reports.first.id)

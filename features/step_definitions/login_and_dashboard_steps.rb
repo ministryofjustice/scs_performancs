@@ -1,3 +1,18 @@
+When(/^I request access using my e\-mail$/) do
+  page = UI::Pages::Login.new
+  page.load
+
+  page.email_field.set @user.email
+  page.request_button.click
+end
+
+When(/^I click on the link in the e\-mail$/) do
+  open_email(@user.email)
+
+  link = current_email.body.match(%r{^https?://.*$})[0]
+  visit(link)
+end
+
 Then(/^I see a dashboard page with my performance reports$/) do
   current_time = Time.now
 
