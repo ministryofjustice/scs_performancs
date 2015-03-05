@@ -1,7 +1,7 @@
 %h1 Performance Agreements
 
 %h2 Your profile
-= render 'profiles/profile'
+= render partial: 'profiles/profile', locals: { editable: true }
 
 %h2 Your performance agreements
 = render 'reports/your_reports'

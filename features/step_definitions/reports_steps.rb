@@ -153,6 +153,8 @@ When(/^I approve those objectives$/) do
   @page = UI::Pages::ApproveObjectives.new
   @page.load(id: @report.id)
 
+  expect(@page.review_period.text).to eq(@report.review_period)
+
   @page.form.comment.set 'These look good'
 
   Timecop.freeze(@current_time) do
@@ -188,6 +190,8 @@ When(/^I approve this (mid|end)\-year review$/) do |phase|
   page_class = "UI::Pages::Approve#{phase.camelize}YearReview".constantize
   @page = page_class.new
   @page.load(id: @report.id)
+
+  expect(@page.review_period.text).to eq(@report.review_period)
 
   @page.form.comment.set 'You should speed up'
 
