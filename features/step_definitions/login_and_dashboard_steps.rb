@@ -2,7 +2,7 @@ Then(/^I see a dashboard page with my performance reports$/) do
   current_time = Time.now
 
   Timecop.freeze(current_time) do
-    dashboard.displayed?
+    expect(dashboard).to be_displayed
 
     expect(dashboard.reports.size).to eql(1)
     expect(dashboard.reports.first.text).to eql(current_time.to_s(:long))
