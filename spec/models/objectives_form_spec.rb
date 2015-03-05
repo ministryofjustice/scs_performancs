@@ -55,6 +55,7 @@ RSpec.describe ObjectivesForm, type: :model do
     subject { described_class.allowed_params }
     it 'returns list of allowed parameters' do
       expected_params = [
+        'review_period',
         'development_1',
         'development_2',
         'development_3',

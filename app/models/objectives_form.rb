@@ -4,6 +4,8 @@ class ObjectivesForm
 
   include ActiveModel::Model
 
+  attr_accessor :review_period
+
   (1..DEVELOPMENT_OBJECTIVES).each do |n|
     attr_accessor "development_#{n}"
   end
@@ -27,13 +29,16 @@ class ObjectivesForm
   end
 
   def self.allowed_params
-    development_params = (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).map do |n|
-      "development_#{n}"
-    end
-    smart_params = (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
-      ["smart_what_#{n}", "smart_how_#{n}"]
-    end.flatten
+    params = ['review_period']
 
-    development_params + smart_params
+    (1..ObjectivesForm::DEVELOPMENT_OBJECTIVES).each do |n|
+      params << "development_#{n}"
+    end
+    (1..ObjectivesForm::SMART_OBJECTIVES).map do |n|
+      params << "smart_what_#{n}"
+      params << "smart_how_#{n}"
+    end
+
+    params
   end
 end

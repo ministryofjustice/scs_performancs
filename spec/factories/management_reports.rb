@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :management_report do
     factory :filled_in_report do
+      review_period '2015/16'
       development ['Develop as an Agile practitioner'] + [''] * 9
       smart [
         { what: 'Learn Ruby language', how: 'Join a weekly Ruby club' }

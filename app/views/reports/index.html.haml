@@ -1,7 +1,7 @@
 %h1 Performance Management Reports
 
 %h2 Your profile
-= render 'profiles/profile'
+= render partial: 'profiles/profile', locals: { editable: true }
 
 %h2 Your performance reports
 = render 'your_reports'

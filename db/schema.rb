@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226112341) do
+ActiveRecord::Schema.define(version: 20150305113523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150226112341) do
     t.json     "approved_snapshot_agreement"
     t.json     "mid_year_approved_snapshot_agreement"
     t.json     "end_year_approved_snapshot_agreement"
+    t.string   "review_period"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
@@ -61,8 +62,8 @@ ActiveRecord::Schema.define(version: 20150226112341) do
     t.text     "email"
     t.text     "job_title"
     t.integer  "manager_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "staff_number"
     t.string   "grade"
     t.string   "organisation"

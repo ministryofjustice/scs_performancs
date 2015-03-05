@@ -5,6 +5,7 @@ module UI
     class ApproveObjectives < SitePrism::Page
       set_url '/reports{/id}/approvals/initial/edit'
 
+      element :review_period, '#review_period'
       section :form, UI::Sections::ApprovalForm, 'form'
     end
   end

@@ -18,5 +18,10 @@
       %p
         %span.label Organisation
         = current_user.organisation
+      - if @report
+        %p
+          %span.label Period of report
+          %span#review_period= @report.review_period
 
-%p= link_to('Edit your profile', edit_profile_path)
+- if editable
+  %p= link_to('Edit your profile', edit_profile_path)
