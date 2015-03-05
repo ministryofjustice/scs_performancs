@@ -11,20 +11,14 @@ Then(/^I should see a dashboard page with my performance reports$/) do
 end
 
 Then(/^I should see performance report approval dates$/) do
-  page = UI::Pages::Dashboard.new
-  page.displayed?
+  initial_date = date_format 5.days.ago
+  mid_year_date = date_format 3.days.ago
 
-  initial_date = 5.days.ago.to_date.to_s(:short).strip
-  mid_year_date = 3.days.ago.to_date.to_s(:short).strip
-
-  expect(page.initial_approval.first.text).to eql(initial_date)
-  expect(page.mid_year_approval.first.text).to eql(mid_year_date)
-  expect(page.end_year_approval.first.text).to eql('awaiting approval')
+  check_my_approval_status initial_date, mid_year_date, 'awaiting approval'
 end
 
 And(/^I should see performance reports of my employees$/) do
   page = UI::Pages::Dashboard.new
-  page.displayed?
 
   expect(page.employees_reports.size).to eql(@employees_reports.size)
 
@@ -33,8 +27,7 @@ And(/^I should see performance reports of my employees$/) do
 
   expect(names_on_page).to eql(employee_names)
 
-  submitted_date = @employees_reports.first.updated_at.to_date.to_s(:short).strip
-  expect(page.employees_initial_approval.first.text).to eql("submitted on: #{submitted_date}")
-  expect(page.employees_mid_year_approval.first.text).to eql('')
-  expect(page.employees_end_year_approval.first.text).to eql('')
+  submitted_date = date_format @employees_reports.first.updated_at
+
+  check_employee_approval_status "submitted on: #{submitted_date}", '', ''
 end
