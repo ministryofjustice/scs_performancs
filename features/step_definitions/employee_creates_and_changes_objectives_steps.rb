@@ -52,6 +52,8 @@ When(/^I change the objectives on the report$/) do
   @page = UI::Pages::EditReport.new
   @page.load(id: @report.id)
 
+  @page.form.review_period.set '2016/17'
+
   @page.form.smart_objective_what_field_1.set 'Learn spanish'
   @page.form.smart_objective_how_field_1.set 'Read children books'
 
@@ -75,6 +77,8 @@ end
 
 Then(/^the changes are saved on the report$/) do
   @report.reload
+
+  expect(@report.review_period).to eql('2016/17')
 
   expected = ['Changed Objective 1', 'New Objective', '', '',
               'Changed Objective 5', '', '', '', '', '']
