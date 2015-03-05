@@ -47,3 +47,50 @@ Then(/^the report is saved$/) do
   ]
   expect(report.smart).to eql(expected_smart)
 end
+
+When(/^I change the objectives on the report$/) do
+  @page = UI::Pages::EditReport.new
+  @page.load(id: @report.id)
+
+  @page.form.smart_objective_what_field_1.set 'Learn spanish'
+  @page.form.smart_objective_how_field_1.set 'Read children books'
+
+  @page.form.add_objective.click
+  @page.form.add_objective.click
+  @page.form.smart_objective_what_field_3.set 'Bake pies'
+  @page.form.smart_objective_how_field_3.set 'Use the oven'
+
+  @page.form.development_objective_field_1.set 'Changed Objective 1'
+
+  @page.form.add_development.click
+  @page.form.development_objective_field_2.set 'New Objective'
+
+  @page.form.add_development.click
+  @page.form.add_development.click
+  @page.form.add_development.click
+  @page.form.development_objective_field_5.set 'Changed Objective 5'
+
+  @page.form.save_button.click
+end
+
+Then(/^the changes are saved on the report$/) do
+  @report.reload
+
+  expected = ['Changed Objective 1', 'New Objective', '', '',
+              'Changed Objective 5', '', '', '', '', '']
+  expect(@report.development).to match_array(expected)
+
+  expected_smart = [
+    { 'what' => 'Learn spanish', 'how' => 'Read children books' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => 'Bake pies', 'how' => 'Use the oven' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => '', 'how' => '' },
+    { 'what' => '', 'how' => '' }
+  ]
+  expect(@report.smart).to match_array(expected_smart)
+end
