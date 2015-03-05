@@ -1,9 +1,5 @@
 When(/^I request access using my e\-mail$/) do
-  page = UI::Pages::Login.new
-  page.load
-
-  page.email_field.set @user.email
-  page.request_button.click
+  request_login_token @user.email
 end
 
 When(/^I click on the link in the e\-mail$/) do
@@ -14,11 +10,7 @@ When(/^I click on the link in the e\-mail$/) do
 end
 
 When(/^I request access using incorrect e\-mail$/) do
-  @page = UI::Pages::Login.new
-  @page.load
-
-  @page.email_field.set 'email@example.com'
-  @page.request_button.click
+  request_login_token 'email@example.com'
 end
 
 Then(/^I see login error message$/) do
