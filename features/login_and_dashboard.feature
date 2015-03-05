@@ -6,6 +6,11 @@ Feature:
   Background:
     Given There are some users and reports already in the system
 
+  Scenario: logging in with incorrect email
+    Given I am an employee
+    When I request access using incorrect e-mail
+    Then I see login error message
+
   Scenario: logging in and seeing my dashboard
     Given I am an employee
     And I have some objectives and mid-year review approved

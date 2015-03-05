@@ -5,7 +5,12 @@ class TokensController < ApplicationController
 
   def create
     @token_request_form = TokenRequestForm.new(token_params)
-    unless @token_request_form.valid? && send_token(@token_request_form.email)
+    token_sent = @token_request_form.valid? && send_token(@token_request_form.email)
+
+    if token_sent
+      # success
+    else
+      flash[:error] = 'Email address not recognised.'
       render :new
     end
   end
@@ -28,6 +33,9 @@ private
     if user
       token = user.tokens.create
       TokenMailer.request_email(user, token).deliver_later
+      return true
+    else
+      return false
     end
   end
 end
