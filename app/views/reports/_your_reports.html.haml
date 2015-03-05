@@ -14,17 +14,17 @@
           %td= agreement.updated_at.to_s(:long)
           %td
             - if agreement.approved_at
-              = agreement.approved_at.to_date.to_s(:short)
+              = display_date agreement.approved_at
             - else
               awaiting approval
           %td
             - if agreement.mid_year_approved_at
-              = agreement.mid_year_approved_at.to_date.to_s(:short)
+              = display_date agreement.mid_year_approved_at
             - else
               awaiting approval
           %td
             - if agreement.end_year_approved_at
-              = agreement.end_year_approved_at.to_date.to_s(:short)
+              = display_date agreement.end_year_approved_at
             - else
               awaiting approval
           %td

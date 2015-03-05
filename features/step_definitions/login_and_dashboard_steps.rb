@@ -32,4 +32,9 @@ And(/^I should see performance reports of my employees$/) do
   employee_names = @employees_reports.map { |r| r.user.name }
 
   expect(names_on_page).to eql(employee_names)
+
+  submitted_date = @employees_reports.first.updated_at.to_date.to_s(:short).strip
+  expect(page.employees_initial_approval.first.text).to eql("submitted on: #{submitted_date}")
+  expect(page.employees_mid_year_approval.first.text).to eql('')
+  expect(page.employees_end_year_approval.first.text).to eql('')
 end

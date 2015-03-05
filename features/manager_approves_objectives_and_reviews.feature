@@ -12,15 +12,18 @@ Feature:
     When I approve those objectives
     Then the objectives are approved
     And the snapshot of those objectives is stored
+    And I see approval date on the employee reports dashboard
 
   Scenario: Manager approves mid-year progress
     And one of my employees has their mid-year review filled
     When I approve this mid-year review
     Then The review is approved
     And The snapshot of the objectives is stored
+    And I see mid-year approval date on the employee reports dashboard
 
   Scenario: Manager approves end-year progress
     And one of my employees has their end-year review filled
     When I approve this end-year review
     Then The review is approved
     And The snapshot of the objectives is stored
+    And I see end-year approval date on the employee reports dashboard

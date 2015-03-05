@@ -10,6 +10,9 @@ module UI
       elements :end_year_approval, 'table.reports tbody tr td:nth-child(4)'
 
       elements :employees_reports, 'table.employees-reports tbody tr td:first'
+      elements :employees_initial_approval,  'table.employees-reports tbody tr td:nth-child(2)'
+      elements :employees_mid_year_approval, 'table.employees-reports tbody tr td:nth-child(3)'
+      elements :employees_end_year_approval, 'table.employees-reports tbody tr td:nth-child(4)'
     end
   end
 end

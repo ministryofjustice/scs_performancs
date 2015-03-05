@@ -4,13 +4,29 @@
     %thead
       %tr
         %th Name
-        %th Last changed on
+        %th Initial approval
+        %th Mid-year approval
+        %th End-year approval
         %th Action
     %tbody
       - @employees_reports.each do |report|
         %tr
           %td= report.user.to_s
-          %td= report.updated_at.to_date.to_s(:short)
+          %td
+            - if report.approved?
+              = display_date report.approved_at
+            - else
+              = "submitted on: #{display_date(report.updated_at)}"
+          %td
+            - if report.mid_year_approved?
+              = display_date report.mid_year_approved_at
+            - elsif report.approved?
+              awaiting submission
+          %td
+            - if report.end_year_approved?
+              = display_date report.end_year_approved_at
+            - elsif report.mid_year_approved?
+              awaiting submission
           %td
             - if report.approved?
               - if report.mid_year_approved?
