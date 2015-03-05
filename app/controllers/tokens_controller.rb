@@ -7,9 +7,7 @@ class TokensController < ApplicationController
     @token_request_form = TokenRequestForm.new(token_params)
     token_sent = @token_request_form.valid? && send_token(@token_request_form.email)
 
-    if token_sent
-      # success
-    else
+    unless token_sent
       flash[:error] = 'Email address not recognised.'
       render :new
     end
