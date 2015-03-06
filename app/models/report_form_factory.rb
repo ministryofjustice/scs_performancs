@@ -5,6 +5,7 @@ class ReportFormFactory
 
   def objectives
     ObjectivesForm.new.tap do |form|
+      form.review_period = @report.review_period
       process_development(form, '')
       process_smart(form, '')
     end
@@ -14,6 +15,7 @@ class ReportFormFactory
     ReviewForm.new.tap do |form|
       column_set = "#{type}_review"
 
+      form.review_period = @report.review_period
       process_development(form, column_set)
       process_smart(form, column_set)
       process_comment(form, column_set)

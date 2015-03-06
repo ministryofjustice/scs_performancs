@@ -19,6 +19,10 @@ RSpec.describe ReportFormFactory, type: :model do
       expect(subject.smart_what_1).to eql(management_report.smart[0]['what'])
       expect(subject.smart_how_1).to eql(management_report.smart[0]['how'])
     end
+
+    it 'assigns review_period' do
+      expect(subject.review_period).to eq(management_report.review_period)
+    end
   end
 
   describe '#review' do

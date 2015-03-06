@@ -11,6 +11,14 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, format: /\A.+@.+\z/, uniqueness: true
 
+  def report_open?
+    open_report.present?
+  end
+
+  def open_report
+    reports.detect { |r| !r.end_year_approved? }
+  end
+
   def email=(e)
     super normalize_email(e)
   end

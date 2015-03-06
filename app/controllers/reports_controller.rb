@@ -3,7 +3,11 @@ class ReportsController < ApplicationController
   before_action :ensure_user
 
   def new
-    @report_form = ObjectivesForm.new
+    if current_user.report_open?
+      redirect_to action: :edit, id: current_user.open_report.id
+    else
+      @report_form = ObjectivesForm.new
+    end
   end
 
   def create
