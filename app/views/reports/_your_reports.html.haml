@@ -1,5 +1,4 @@
-- @agreements ||= @reports
-- unless @agreements.empty?
+- unless @reports.empty?
   %table.reports
     %thead
       %tr
@@ -9,7 +8,7 @@
         %th End year approval
         %th Action
     %tbody
-      - @agreements.each do |agreement|
+      - @reports.each do |agreement|
         %tr
           %td= agreement.updated_at.to_s(:long)
           %td

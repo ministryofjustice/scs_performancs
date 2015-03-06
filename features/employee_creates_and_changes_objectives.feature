@@ -18,3 +18,8 @@ Feature:
     Given I have an existing report
     When I change the objectives on the report
     Then the changes are saved on the report
+
+  Scenario: Employee with unclosed report tries to create new report
+    Given I have an existing report
+    When I view dashboard
+    Then I cannot create a new report
