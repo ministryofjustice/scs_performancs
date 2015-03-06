@@ -1,3 +1,22 @@
+When(/^I request access using my e\-mail$/) do
+  request_login_token @user.email
+end
+
+When(/^I click on the link in the e\-mail$/) do
+  open_email(@user.email)
+
+  link = current_email.body.match(%r{^https?://.*$})[0]
+  visit(link)
+end
+
+When(/^I request access using incorrect e\-mail$/) do
+  request_login_token 'email@example.com'
+end
+
+Then(/^I see login error message$/) do
+  expect(@page.error.text).to eql('Email address not recognised.')
+end
+
 Then(/^I see a dashboard page with my performance reports$/) do
   current_time = Time.now
 

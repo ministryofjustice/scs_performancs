@@ -1,5 +1,8 @@
 %h1 Please log in
 
+- if flash[:error]
+  %p.error= flash[:error]
+
 = form_for(@token_request_form, url: tokens_path, method: :post) do |f|
   .form-group
     = f.label :email, 'Email'
