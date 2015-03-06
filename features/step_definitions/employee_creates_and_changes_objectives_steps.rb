@@ -107,5 +107,5 @@ When(/^I view dashboard$/) do
 end
 
 Then(/^I cannot create a new report$/) do
-  expect(@dashboard.has_create_new_report?).to eq(false)
+  expect(@dashboard.has_no_create_new_report?).to eq(true)
 end
