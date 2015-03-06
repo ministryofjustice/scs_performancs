@@ -13,12 +13,12 @@
     = f.text_field :staff_number, class: 'form-control'
 
   .form-group
-    = f.label :grade, class: 'form-label'
+    = f.label :grade, 'Job title and pay band', class: 'form-label'
     = f.text_field :grade, class: 'form-control'
 
   .form-group
-    = f.label :organisation, class: 'form-label'
-    = f.text_field :organisation, class: 'form-control'
+    = f.label :current_role_start_date, 'Current role began from', class: 'form-label'
+    = f.text_field :current_role_start_date, class: 'form-control'
 
   .form-group
     = f.submit 'Save', class: 'button'

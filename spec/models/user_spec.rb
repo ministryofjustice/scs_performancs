@@ -23,4 +23,5 @@ RSpec.describe User, type: :model do
     subject.email = 'USER@Example.com'
     expect(subject.email).to eql('user@example.com')
   end
+
 end

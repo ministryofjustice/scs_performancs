@@ -13,11 +13,11 @@
           = current_user.manager.to_s
     %td
       %p
-        %span.label Grade
+        %span.label Job title and pay band
         = current_user.grade
       %p
-        %span.label Organisation
-        = current_user.organisation
+        %span.label Current role began from
+        = current_user.current_role_start_date
       - if @report
         %p
           %span.label Period of report
