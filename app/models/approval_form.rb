@@ -1,7 +1,9 @@
 class ApprovalForm < ObjectivesForm
+
   attr_accessor :comment
+  attr_accessor :final_rating
 
   def self.allowed_params
-    ['comment']
+    ['comment', 'final_rating']
   end
 end

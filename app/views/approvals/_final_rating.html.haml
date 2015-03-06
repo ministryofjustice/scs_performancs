@@ -1,0 +1,11 @@
+%fieldset.radio.inline
+  %h2 Agreed final rating
+  = f.label(:final_rating, class: 'block-label') do
+    = f.radio_button(:final_rating, "outstanding")
+    Outstanding
+  = f.label(:final_rating, class: 'block-label') do
+    = f.radio_button(:final_rating, "good")
+    Good
+  = f.label(:final_rating, class: 'block-label') do
+    = f.radio_button(:final_rating, "must_improve")
+    Must improve

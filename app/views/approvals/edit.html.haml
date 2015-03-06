@@ -11,6 +11,9 @@
 
   = render 'reviews/report_comments'
 
+  - if @report.is_a?(ManagementReport) && @report.end_year_review_comment.present?
+    = render partial: 'final_rating', locals: { f: f }
+
   %h2 Comments
   = f.text_area :comment
 
