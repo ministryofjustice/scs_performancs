@@ -16,7 +16,7 @@ class AgreementsController < ApplicationController
   end
 
   def index
-    @agreements = current_user.agreements.all
+    @reports = current_user.agreements.all
     @employees_reports = current_user.employees_reports
   end
 

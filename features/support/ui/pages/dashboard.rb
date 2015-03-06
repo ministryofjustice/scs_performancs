@@ -13,6 +13,8 @@ module UI
       element :employee_initial_approval,  'table.employees-reports tbody tr:first td:nth-child(2)'
       element :employee_mid_year_approval, 'table.employees-reports tbody tr:first td:nth-child(3)'
       element :employee_end_year_approval, 'table.employees-reports tbody tr:first td:nth-child(4)'
+
+      element :create_new_report, 'a[href="/reports/new"]'
     end
   end
 end

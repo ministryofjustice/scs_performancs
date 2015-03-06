@@ -26,6 +26,10 @@ FactoryGirl.define do
                 { what: 'I can use Rails', how: 'I attended 6 times' }
               ] + [{ what: '', how: '' }] * 9
               end_year_review_comment 'It could not be a better year!'
+
+              factory :report_with_end_year_approved do
+                end_year_approved_at { 1.days.ago }
+              end
             end
           end
         end

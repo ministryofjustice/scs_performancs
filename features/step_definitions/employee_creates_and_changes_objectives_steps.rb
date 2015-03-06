@@ -1,4 +1,7 @@
 When(/^I create new report with some objectives$/) do
+  dashboard.load
+  expect(@dashboard.has_create_new_report?).to eq(true)
+
   @page = UI::Pages::NewReport.new
   @page.load
 
@@ -97,4 +100,12 @@ Then(/^the changes are saved on the report$/) do
     { 'what' => '', 'how' => '' }
   ]
   expect(@report.smart).to match_array(expected_smart)
+end
+
+When(/^I view dashboard$/) do
+  dashboard.load
+end
+
+Then(/^I cannot create a new report$/) do
+  expect(@dashboard.has_no_create_new_report?).to eq(true)
 end

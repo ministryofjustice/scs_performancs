@@ -6,6 +6,7 @@
 %h2 Your performance reports
 = render 'your_reports'
 
-%p= link_to('Create new performance report', new_report_path)
+- unless current_user.report_open?
+  %p= link_to('Create new performance report', new_report_path)
 
 = render 'employee_reports'
