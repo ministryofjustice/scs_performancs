@@ -2,6 +2,8 @@
 # "SCS Performance Management Report".
 class ManagementReport < Report
 
+  enum final_rating: [ :none, :outstanding, :good, :must_improve ]
+
   def approve!(stage, comment)
     stage_prefix = stage == :initial ? '' : "#{stage}_"
 
