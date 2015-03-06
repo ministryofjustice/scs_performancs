@@ -5,7 +5,7 @@ Then(/^I see a dashboard page with my performance reports$/) do
     expect(dashboard).to be_displayed
 
     expect(dashboard.reports.size).to eql(1)
-    expect(dashboard.reports.first.text).to eql(current_time.to_s(:long))
+    expect(dashboard.reports.first.text.chop).to eql(current_time.to_s(:long).chop)
   end
 end
 
