@@ -20,12 +20,12 @@
           %td
             - if report.mid_year_approved?
               = display_date report.mid_year_approved_at
-            - elsif report.approved?
+            - elsif report.approved? && report.mid_year_review_comment.blank?
               awaiting submission
           %td
             - if report.end_year_approved?
               = display_date report.end_year_approved_at
-            - elsif report.mid_year_approved?
+            - elsif report.mid_year_approved? && report.end_year_review_comment.blank?
               awaiting submission
           %td
             - if report.approved?

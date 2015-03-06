@@ -19,12 +19,12 @@
           %td
             - if agreement.mid_year_approved_at
               = display_date agreement.mid_year_approved_at
-            - else
+            - elsif agreement.mid_year_review_comment.present?
               awaiting approval
           %td
             - if agreement.end_year_approved_at
               = display_date agreement.end_year_approved_at
-            - else
+            - elsif agreement.end_year_review_comment.present?
               awaiting approval
           %td
             - unless agreement.end_year_approved?
