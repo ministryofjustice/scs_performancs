@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
 private
 
   def profile_params
-    allowed = %w[name staff_number grade organisation current_role_start_date]
+    allowed = %w[name staff_number grade current_role_start_date]
     params.require(:user).permit(allowed)
   end
 
